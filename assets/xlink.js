@@ -2,15 +2,13 @@
    V2G — links da LP para o resto do mundo.
    Edite só este bloco. O resto é automático.
 
-   - conteudo/guia/lp: URLs dos outros deploys na Vercel (sem barra no fim).
+   Só dois deploys ficam no ar: a LP e o App (o Guia foi descontinuado).
+   - conteudo: URL do App (repo v2gapp) na Vercel.
    - lead: para onde vai o CTA principal "análise gratuita"
      (link do WhatsApp com mensagem pronta, ou o link do seu agendamento).
-   Deixe "" para manter o comportamento padrão (link relativo / href="#").
    ============================================================ */
 window.V2G_URLS = {
-  conteudo: "https://v2g-conteudo.vercel.app",
-  guia:     "https://v2g-guia.vercel.app",
-  lp:       "https://v2g-lp.vercel.app",
+  conteudo: "https://v2gapp.vercel.app",
   lead:     "https://wa.me/5500000000000?text=Oi!%20Quero%20fazer%20a%20an%C3%A1lise%20gratuita%20do%20meu%20neg%C3%B3cio."
 };
 
