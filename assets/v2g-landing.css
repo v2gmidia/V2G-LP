@@ -544,3 +544,131 @@ body.lp {
   .lp-nav { backdrop-filter: none; }
   .proof-float { transform: none; }
 }
+
+/* ============================================================
+   LP v2 — copy comercial (análise gratuita + comparação de preço)
+   Componentes novos. Tabelas empilham em cards no mobile (sem scroll lateral).
+   ============================================================ */
+
+.navy-dots {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(171, 234, 253, 0.12) 1.1px, transparent 1.1px);
+  background-size: 18px 18px;
+}
+
+/* par de CTAs: primário (análise) + secundário (cadastro) */
+.cta-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
+.cta-stack.center { align-items: center; text-align: center; }
+.cta-sub-link {
+  font-family: var(--display); font-weight: 600; font-size: 14.5px;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.cta-sub-link .arrow { transition: transform 0.14s ease; }
+.cta-sub-link:hover .arrow { transform: translateX(3px); }
+.hero .cta-sub-link, .final-cta .cta-sub-link, .isca .cta-sub-link { color: var(--ice); }
+.section .cta-sub-link { color: var(--cobalt); }
+.cta-reinforce { font-size: 13.5px; margin: 2px 0 0; }
+.hero .cta-reinforce { color: rgba(240, 242, 239, 0.72); }
+.section .cta-reinforce, .plan .cta-reinforce { color: var(--ink-mute); }
+
+/* corpo de texto de seção + frase de virada */
+.sec-body { max-width: 62ch; }
+.sec-body p { font-size: 16px; line-height: 1.7; color: var(--ink-soft); margin: 0 0 16px; }
+.sec-body p:last-child { margin-bottom: 0; }
+.sec-body i { color: var(--ink); }
+.turn-line {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(19px, 2.4vw, 27px); line-height: 1.18;
+  color: var(--navy); margin: 26px 0 0; text-wrap: balance; max-width: 24ch;
+}
+.turn-line em { font-style: normal; color: var(--cobalt); }
+
+/* --- comparação de preço (estilo Contabilizei) --- */
+.cmp { border: 1.5px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--white); }
+.cmp-head, .cmp-row { display: grid; grid-template-columns: 1.5fr 1fr 1.3fr; align-items: center; }
+.cmp-head { background: var(--navy); }
+.cmp-head > div { padding: 14px 18px; font-family: var(--display); font-size: 13px; letter-spacing: 0.02em; }
+.cmp-head .h-feat { color: rgba(240, 242, 239, 0.66); }
+.cmp-head .h-v2g { color: var(--lime); text-align: center; }
+.cmp-head .h-mkt { color: rgba(240, 242, 239, 0.72); text-align: center; }
+.cmp-row { border-top: 1.5px solid var(--line); }
+.cmp-row > div { padding: 14px 18px; font-size: 14.5px; }
+.cmp-feat { color: var(--ink); font-weight: 600; }
+.cmp-v2g { text-align: center; color: var(--navy); font-weight: 700; font-family: var(--display); display: flex; align-items: center; justify-content: center; gap: 7px; }
+.cmp-v2g .tk { width: 18px; height: 18px; background: var(--lime); color: var(--navy); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.cmp-mkt { text-align: center; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.cmp-lbl { display: none; }
+.cmp-row.total { background: var(--offwhite); }
+.cmp-row.total > div { padding-top: 17px; padding-bottom: 17px; }
+.cmp-row.total .cmp-feat { font-family: var(--display); font-weight: 700; font-size: 15px; }
+.cmp-row.total .cmp-v2g { font-size: 23px; color: var(--cobalt); }
+.cmp-row.total .cmp-mkt { font-size: 17px; font-weight: 700; font-family: var(--display); color: var(--crit); }
+.eco { text-align: center; margin: 24px 0 0; }
+.eco h3 { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 3vw, 32px); color: var(--navy); margin: 0 0 8px; text-wrap: balance; }
+.eco h3 mark { background: var(--lime); color: var(--navy); padding: 1px 8px; }
+.eco p { font-size: 15px; color: var(--ink-soft); margin: 0; }
+.cmp-note { font-size: 12px; line-height: 1.55; color: var(--ink-mute); margin: 18px auto 0; max-width: 74ch; }
+
+/* --- não é agência (vs) --- */
+.vs { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--line); border-radius: 16px; overflow: hidden; }
+.vs-col.them { background: var(--white); }
+.vs-col.us { background: var(--ice-soft); }
+.vs-h { font-family: var(--display); font-weight: 700; font-size: 14px; padding: 15px 18px; border-bottom: 1.5px solid var(--line); }
+.vs-col.them .vs-h { color: var(--ink-soft); }
+.vs-col.us .vs-h { color: var(--navy); }
+.vs-item { padding: 14px 18px; font-size: 14px; line-height: 1.45; border-top: 1px dashed var(--line); }
+.vs-item.first { border-top: none; }
+.vs-col.them .vs-item { color: var(--ink-soft); }
+.vs-col.us .vs-item { color: var(--ink); font-weight: 500; }
+.vs-note { font-size: 13.5px; line-height: 1.6; color: var(--ink-mute); margin: 18px 0 0; }
+
+/* --- isca análise gratuita (navy) --- */
+.isca { position: relative; overflow: hidden; background: var(--navy); border-radius: 20px; padding: 42px 40px; color: var(--offwhite); }
+.isca > * { position: relative; }
+.isca .sec-eyebrow { color: var(--ice); }
+.isca h2 { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 3.4vw, 36px); line-height: 1.1; margin: 0 0 12px; color: var(--offwhite); text-wrap: balance; max-width: 20ch; }
+.isca .isca-sub { font-size: 16px; line-height: 1.6; color: rgba(240, 242, 239, 0.82); margin: 0 0 22px; max-width: 52ch; }
+.isca-list { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 13px; }
+.isca-list li { display: flex; gap: 12px; font-size: 15px; line-height: 1.5; color: rgba(240, 242, 239, 0.92); }
+.isca-list li .tk { width: 20px; height: 20px; flex: none; background: var(--lime); color: var(--navy); display: inline-flex; align-items: center; justify-content: center; margin-top: 1px; }
+
+/* --- prova social --- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 30px; }
+.stat { text-align: center; background: var(--white); border: 1.5px solid var(--line); border-radius: 14px; padding: 26px 20px; }
+.stat b { display: block; font-family: var(--display); font-weight: 700; font-size: 34px; color: var(--cobalt); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; line-height: 1.4; color: var(--ink-soft); }
+.tstm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 16px; }
+.tstm { background: var(--white); border: 1.5px solid var(--line); border-radius: 14px; padding: 22px; }
+.tstm p { font-size: 14.5px; line-height: 1.6; color: var(--ink); margin: 0 0 14px; }
+.tstm .who { font-size: 13px; color: var(--ink-mute); font-family: var(--display); }
+.is-placeholder { color: var(--ink-mute); font-style: italic; }
+.social-fallback { margin: 26px auto 0; max-width: 60ch; text-align: center; font-size: 15px; line-height: 1.6; color: var(--ink-soft); background: var(--ice-soft); border: 1.5px solid var(--ice); border-radius: 12px; padding: 20px 24px; }
+.social-fallback b { color: var(--navy); font-family: var(--display); }
+
+/* --- plano de preço --- */
+.plan { max-width: 470px; margin: 0 auto; background: var(--white); border: 2px solid var(--cobalt); border-radius: 18px; padding: 34px 32px 30px; text-align: center; box-shadow: 0 24px 50px -30px rgba(43, 76, 206, 0.4); }
+.plan .p-name { font-family: var(--display); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cobalt); }
+.plan .p-price { font-family: var(--display); font-weight: 700; font-size: 56px; color: var(--navy); line-height: 1; margin: 8px 0 4px; font-variant-numeric: tabular-nums; }
+.plan .p-price small { font-size: 21px; font-weight: 400; color: var(--ink-soft); }
+.plan .p-fid { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 24px; }
+.plan ul { list-style: none; text-align: left; margin: 0 0 24px; padding: 0; display: grid; gap: 12px; }
+.plan ul li { display: flex; gap: 11px; font-size: 14.5px; line-height: 1.4; color: var(--ink); }
+.plan ul li .tk { width: 19px; height: 19px; flex: none; background: var(--lime); color: var(--navy); display: inline-flex; align-items: center; justify-content: center; margin-top: 1px; }
+.plan .btn { width: 100%; }
+.plan .p-obs { font-size: 12.5px; line-height: 1.55; color: var(--ink-mute); margin: 16px 0 0; }
+.plan .cta-sub-link { margin-top: 14px; }
+
+@media (max-width: 720px) {
+  .cmp-head { display: none; }
+  .cmp-row { grid-template-columns: 1fr 1fr; }
+  .cmp-feat { grid-column: 1 / -1; padding-bottom: 2px; }
+  .cmp-lbl { display: block; font-family: var(--display); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 4px; }
+  .cmp-v2g, .cmp-mkt { display: block; text-align: left; }
+  .cmp-v2g .tk { vertical-align: -3px; margin-right: 4px; }
+  .cmp-row.total .cmp-v2g { font-size: 20px; }
+  .vs { grid-template-columns: 1fr; }
+  .vs-col.them { border-bottom: 1.5px solid var(--line); }
+  .stats { grid-template-columns: 1fr; gap: 12px; }
+  .isca { padding: 30px 22px; }
+  .plan { padding: 28px 22px 24px; }
+}
