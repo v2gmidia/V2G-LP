@@ -1,0 +1,120 @@
+/* ============================================================
+   V2G — estilos das páginas de texto longo (privacidade, termos,
+   exclusão de dados). Mínimo necessário além de v2g.css/v2g-landing.css:
+   largura de leitura confortável, hierarquia de títulos, espaçamento.
+   ============================================================ */
+
+.legal-hero {
+  background: var(--navy);
+  color: var(--offwhite);
+  padding: 54px 0 40px;
+}
+.legal-hero .lp-container { max-width: 760px; }
+.legal-eyebrow {
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ice);
+  display: block;
+  margin-bottom: 12px;
+}
+.legal-hero h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.1;
+  margin: 0 0 10px;
+}
+.legal-hero .legal-updated {
+  font-size: 13px;
+  color: rgba(240, 242, 239, 0.7);
+  margin: 0;
+}
+
+.legal-body { padding: 48px 0 72px; }
+.legal-body .lp-container { max-width: 760px; }
+
+.legal-body h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 21px;
+  color: var(--navy);
+  margin: 40px 0 14px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+.legal-body h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+.legal-body h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--navy);
+  margin: 22px 0 8px;
+}
+
+.legal-body p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+.legal-body p strong,
+.legal-body li strong { color: var(--ink); }
+
+.legal-body ul,
+.legal-body ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+.legal-body li {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+.legal-body ol.steps-list { counter-reset: legal-step; list-style: none; padding-left: 0; }
+.legal-body ol.steps-list li {
+  position: relative;
+  padding-left: 38px;
+  margin-bottom: 18px;
+}
+.legal-body ol.steps-list li::before {
+  counter-increment: legal-step;
+  content: counter(legal-step);
+  position: absolute;
+  left: 0; top: 0;
+  width: 26px; height: 26px;
+  background: var(--cobalt);
+  color: var(--white);
+  border-radius: 999px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.legal-card {
+  background: var(--ice-soft);
+  border: 1.5px solid var(--ice);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 20px 0;
+}
+.legal-card p:last-child { margin-bottom: 0; }
+.legal-card a { font-weight: 600; text-decoration: none; }
+
+.legal-placeholder {
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+@media (max-width: 620px) {
+  .legal-hero { padding: 40px 0 32px; }
+  .legal-body { padding: 36px 0 56px; }
+  .legal-body h2 { font-size: 19px; margin-top: 32px; }
+}
