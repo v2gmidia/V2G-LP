@@ -9,7 +9,7 @@
    ============================================================ */
 window.V2G_URLS = {
   conteudo: "https://v2gapp.vercel.app",
-  lead:     "https://wa.me/5500000000000?text=Oi!%20Quero%20fazer%20a%20an%C3%A1lise%20gratuita%20do%20meu%20neg%C3%B3cio."
+  lead:     "https://wa.me/5521980351531?text=Oi!%20Quero%20fazer%20a%20an%C3%A1lise%20gratuita%20do%20meu%20neg%C3%B3cio."
 };
 
 (function () {
