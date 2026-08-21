@@ -59,14 +59,22 @@ body.lp {
   display: block;
   font-family: var(--body);
   font-weight: 400;
-  font-size: 9.5px;
-  letter-spacing: 0.12em;
+  /* Era 9,5px — o menor texto da página, e é a linha que diz o que a
+     empresa faz. O entrelinhamento largo compensa o corpo maior sem
+     empurrar a marca. */
+  font-size: 12px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ice);
   margin-top: 3px;
 }
 .lp-nav .nav-links { margin-left: auto; display: flex; align-items: center; gap: 22px; }
 .lp-nav .nav-links a.txt {
+  /* Some abaixo de 720px (regra logo abaixo), entao o piso de toque so
+     vale onde ele aparece — mas ali ele tambem tinha 17px. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--display);
   font-size: 13.5px;
   color: rgba(240, 242, 239, 0.82);
@@ -202,7 +210,7 @@ body.lp {
   font-family: var(--display); font-weight: 700; font-size: 14px;
 }
 .proof-float .pf-who b { font-family: var(--display); font-size: 13.5px; color: var(--navy); display: block; line-height: 1.1; }
-.proof-float .pf-who span { font-size: 11px; color: var(--ink-mute); }
+.proof-float .pf-who span { font-size: 12px; color: var(--ink-soft); }
 .proof-float .pf-phrase {
   font-family: var(--display);
   font-weight: 700;
@@ -218,7 +226,7 @@ body.lp {
   border-radius: 9px;
   padding: 11px 12px;
 }
-.proof-float .pf-m .l { font-family: var(--display); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); display: block; }
+.proof-float .pf-m .l { font-family: var(--display); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); display: block; }
 .proof-float .pf-m .v { font-family: var(--display); font-weight: 700; font-size: 19px; color: var(--navy); font-variant-numeric: tabular-nums; }
 .proof-float .pf-m .v.win { color: var(--cobalt); }
 .proof-float .pf-tag {
@@ -507,8 +515,18 @@ body.lp {
 .lp-footer .lp-container { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
 .lp-footer .f-brand { display: flex; align-items: center; gap: 11px; }
 .lp-footer .f-brand .wm { font-family: var(--display); font-weight: 700; font-size: 17px; color: var(--offwhite); letter-spacing: 0.04em; }
-.lp-footer .f-links { margin-left: auto; display: flex; flex-wrap: wrap; gap: 18px; }
-.lp-footer .f-links a { color: rgba(240, 242, 239, 0.66); text-decoration: none; font-size: 13px; }
+.lp-footer .f-links { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.lp-footer .f-links a {
+  color: rgba(240, 242, 239, 0.78);
+  text-decoration: none;
+  font-size: 13px;
+  /* Mesma regua do .cta-sub-link. Estes links tinham 17px de altura.
+     ATENCAO: este rodape e compartilhado com as paginas legais — o que
+     muda ali e area de toque e opacidade do link, nenhum texto. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
 .lp-footer .f-links a:hover { color: var(--ice); }
 .lp-footer .f-legal { flex-basis: 100%; font-size: 12px; color: rgba(240, 242, 239, 0.44); border-top: 1px solid rgba(171, 234, 253, 0.12); padding-top: 18px; margin-top: 4px; line-height: 1.6; }
 
@@ -562,14 +580,34 @@ body.lp {
 .cta-sub-link {
   font-family: var(--display); font-weight: 600; font-size: 14.5px;
   text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  /* 12px em cima e embaixo poem o alvo em 44px, o piso do iOS. Medido em
+     375px: este link tinha 20px de altura. O tamanho da letra nao muda —
+     o que muda e onde o dedo acerta. */
+  min-height: 44px;
+  padding-block: 12px;
 }
 .cta-sub-link .arrow { transition: transform 0.14s ease; }
 .cta-sub-link:hover .arrow { transform: translateX(3px); }
-.hero .cta-sub-link, .final-cta .cta-sub-link, .isca .cta-sub-link { color: var(--ice); }
+/* ============================================================
+   A ORDEM DESTAS DUAS LINHAS ESTAVA ERRADA, E DAVA 2,51:1.
+
+   `.isca` e `.final-cta` são `<div>` DENTRO de `<section class="section">`.
+   Então os dois seletores casam o mesmo link, os dois têm a mesma
+   especificidade (0,2,0), e quem vencia era o de baixo — pintando a seta
+   de cobalto sobre o navy da isca: 2,51:1, medido na página no ar.
+
+   A regra do fundo escuro estava escrita, correta, e INERTE. Consertado
+   dando a ela a especificidade que a intenção dela pedia, em vez de
+   confiar na ordem — mesmo conserto que a `.nav-eyebrow` do app recebeu.
+   Ver docs/regra-inerte.md no repo do webapp.
+   ============================================================ */
 .section .cta-sub-link { color: var(--cobalt); }
+.hero .cta-sub-link,
+.section .final-cta .cta-sub-link,
+.section .isca .cta-sub-link { color: var(--ice); }
 .cta-reinforce { font-size: 13.5px; margin: 2px 0 0; }
 .hero .cta-reinforce { color: rgba(240, 242, 239, 0.72); }
-.section .cta-reinforce, .plan .cta-reinforce { color: var(--ink-mute); }
+.section .cta-reinforce, .plan .cta-reinforce { color: var(--ink-soft); }
 
 /* corpo de texto de seção + frase de virada */
 .sec-body { max-width: 62ch; }
@@ -607,7 +645,7 @@ body.lp {
 .eco h3 { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 3vw, 32px); color: var(--navy); margin: 0 0 8px; text-wrap: balance; }
 .eco h3 mark { background: var(--lime); color: var(--navy); padding: 1px 8px; }
 .eco p { font-size: 15px; color: var(--ink-soft); margin: 0; }
-.cmp-note { font-size: 12px; line-height: 1.55; color: var(--ink-mute); margin: 18px auto 0; max-width: 74ch; }
+.cmp-note { font-size: 13px; line-height: 1.55; color: var(--ink-soft); margin: 18px auto 0; max-width: 74ch; }
 
 /* --- não é agência (vs) --- */
 .vs { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--line); border-radius: 16px; overflow: hidden; }
@@ -620,7 +658,7 @@ body.lp {
 .vs-item.first { border-top: none; }
 .vs-col.them .vs-item { color: var(--ink-soft); }
 .vs-col.us .vs-item { color: var(--ink); font-weight: 500; }
-.vs-note { font-size: 13.5px; line-height: 1.6; color: var(--ink-mute); margin: 18px 0 0; }
+.vs-note { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 18px 0 0; }
 
 /* --- isca análise gratuita (navy) --- */
 .isca { position: relative; overflow: hidden; background: var(--navy); border-radius: 20px; padding: 42px 40px; color: var(--offwhite); }
@@ -655,14 +693,14 @@ body.lp {
 .plan ul li { display: flex; gap: 11px; font-size: 14.5px; line-height: 1.4; color: var(--ink); }
 .plan ul li .tk { width: 19px; height: 19px; flex: none; background: var(--lime); color: var(--navy); display: inline-flex; align-items: center; justify-content: center; margin-top: 1px; }
 .plan .btn { width: 100%; }
-.plan .p-obs { font-size: 12.5px; line-height: 1.55; color: var(--ink-mute); margin: 16px 0 0; }
+.plan .p-obs { font-size: 13px; line-height: 1.55; color: var(--ink-soft); margin: 16px 0 0; }
 .plan .cta-sub-link { margin-top: 14px; }
 
 @media (max-width: 720px) {
   .cmp-head { display: none; }
   .cmp-row { grid-template-columns: 1fr 1fr; }
   .cmp-feat { grid-column: 1 / -1; padding-bottom: 2px; }
-  .cmp-lbl { display: block; font-family: var(--display); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 4px; }
+  .cmp-lbl { display: block; font-family: var(--display); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; }
   .cmp-v2g, .cmp-mkt { display: block; text-align: left; }
   .cmp-v2g .tk { vertical-align: -3px; margin-right: 4px; }
   .cmp-row.total .cmp-v2g { font-size: 20px; }
