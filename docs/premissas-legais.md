@@ -89,3 +89,60 @@ faz parte de publicar, não de escrever.**
 4. Fechar o prazo dos 15 dias e tirar os dois `legal-placeholder`
 5. Atualizar a data das duas páginas e publicar
 6. Só então marcar a entrevista
+
+---
+
+# Estado da publicação — conferido em 21/08/2026
+
+**As três páginas legais estão NO AR com a versão mesclada.** Descoberto por
+acaso, ao conferir um endereço de e-mail: ninguém tinha notado que o deploy
+já havia acontecido.
+
+O que foi medido, baixando as páginas de `v2gmidia.com.br`:
+
+| marcador | no ar |
+|---|---|
+| WhatsApp `+55 21 93618-2176` | sim |
+| WhatsApp antigo `98035-1531` | não |
+| Anthropic, Pagar.me, Rua Visconde, `sa-east-1` | sim |
+| `lp-nav`, Google Fonts | não |
+
+Ou seja: o merge de `d7a23a2` e as correções de `527b892` estão publicados. O
+repositório local está sincronizado com `origin/main`.
+
+**A data das páginas continua a antiga, de propósito.** Isso significa que o
+conteúdo novo está acessível sem se anunciar como revisado — o que é
+coerente enquanto houver pendência, mas deixa de ser no dia em que o
+advogado assinar embaixo. Atualizar a data é o último ato.
+
+## O que isso destrava: a primeira entrevista gravada
+
+A seção **2-B (Reuniões de implantação)** não tem nenhuma pendência e já
+declara o que precisa declarar: que geramos transcrição em texto e não
+guardamos áudio nem vídeo, como a autorização é pedida, que recusar não
+afeta preço nem prazo, para que a transcrição é usada, que ela é apagada em
+30 dias, e como pedir a exclusão antes disso.
+
+Conferido no ar, não no repositório: `placeholders na 2-B = 0`.
+
+Como a página está publicada, o participante consegue ler a política antes
+de consentir — que era a condição que faltava. **A entrevista gravada está
+liberada.**
+
+## O que NÃO está liberado
+
+Quatro pendências seguem visíveis para quem lê, marcadas como `a confirmar`:
+
+| onde | o que falta | quem destrava |
+|---|---|---|
+| privacidade §5 | região do GCP | Gabriel |
+| privacidade §6 | mecanismo de transferência de cada provedor | advogado, com os DPAs |
+| privacidade §7 | ciclo de rotação de backup | Gabriel |
+| exclusão | o mesmo ciclo de backup | Gabriel |
+
+As duas do backup têm que fechar com o mesmo número.
+
+E continua valendo o alerta maior: **o texto que está no ar é um terceiro
+documento** — nem o que o advogado revisou, nem o que o Gabriel escreveu,
+mas o merge dos dois. Ninguém com formação jurídica leu essa versão
+inteira. Publicada não quer dizer revisada.
