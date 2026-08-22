@@ -280,3 +280,83 @@ Nada disto foi olhado. São números medidos por JavaScript na página, antes
 e depois, pelo mesmo caminho — o que prova contraste, corpo de texto e área
 de toque, e **não** prova que a página ficou bonita. A primeira coisa a
 fazer de manhã é abrir `localhost:4180` no celular e olhar.
+
+---
+
+## 7. A tarja de exemplo, e uma correção do que eu reportei — 22/08/2026
+
+### 7.1 O cartão do herói passou a dizer que é exemplo
+
+Decisão do Victor: **opção 1 do §2.2** — sem inventar número novo e sem
+tirar o cartão. Ele mostra como a tela fica, e isso é legítimo; o que não
+era legítimo é ele afirmar sem nada por perto dizendo que é simulação.
+
+O que entrou, como primeiro filho do cartão:
+
+> **EXEMPLO**  Tela de demonstração — não é resultado de cliente.
+
+Quatro decisões de execução, e o motivo de cada uma:
+
+- **Primeiro filho, não rodapé do cartão.** Quem lê de cima para baixo
+  encontra a palavra **antes** do número. Aviso depois do dado chega tarde.
+- **Faixa sangrada até a borda**, em navy sólido — lê como chrome do cartão
+  falando, não como mais um dado dentro da tela simulada. Conferido:
+  `offsetWidth` da tarja = 319 = `offsetWidth` do cartão, `offsetTop` 0. O
+  controle (`.pf-top`, que não deve sangrar) mede 279 em offset 20, então a
+  medida distingue os dois casos.
+- **14px na frase e 15px na palavra** — o corpo do cartão é 13,5px e o
+  número que ela qualifica é 20px. A instrução era palavra visível, não
+  letra miúda, e aviso menor que o dado que ele qualifica é a forma educada
+  de esconder.
+- **Azul-gelo na palavra, não lima.** Lima é a cor de celebração e ganho
+  neste sistema, e não há ganho nenhum a celebrar. Gelo é o bloco de
+  confiança.
+
+Medido: contraste de **13,2:1** na palavra e **15,5:1** na frase, visível
+sem rolar, em 375px e em 1280px, sem rolagem horizontal em nenhum dos dois.
+
+### 7.2 CORREÇÃO — o "22 → 0" do §6 estava errado por instrumento
+
+O §6 diz "falhas de contraste AA: 22 → 0". **Não era 0, era 1.**
+
+A varredura de ontem pulava elemento que tem filho (`el.children.length > 0`),
+para não contar o texto do pai duas vezes. O efeito colateral é que ela não
+via nenhum elemento que mistura texto com outra tag dentro. Refeita hoje
+percorrendo **nós de texto** em vez de elementos, ela achou dois casos que
+tinham escapado:
+
+| o que escapou | por quê |
+|---|---|
+| `.cmp-row.total .cmp-mkt` — "R$ 1.800 a R$ 3.800", 17px, `--crit` sobre off-white, **4,28:1** | contraste reprovado por pouco, e é a linha de TOTAL do comparativo de preço |
+| `.pf-tag` — "Meta da semana batida", **11,5px** | abaixo do piso de 12px; tem um `<svg>` dentro |
+
+Os dois consertados agora:
+
+- O total do comparativo foi de 17px para **19px**. A partir de 18,66px em
+  negrito o piso da WCAG cai para 3:1, e 4,28 passa com folga. Consertado
+  por **tamanho e não por cor** porque a paleta não muda e `--crit` é o que
+  dá o sentido de "este é o caro". O número da V2G continua maior (20px) —
+  a hierarquia não inverte.
+- `.pf-tag` foi para 12px, o mesmo piso do resto.
+
+**Estado real agora, com o instrumento corrigido**, em 375px e 1280px:
+
+```
+167 elementos com texto
+  0 falhas de contraste AA
+  0 textos abaixo de 12px
+  0 alvos de toque abaixo de 44px
+  0 placeholders
+```
+
+A lição não é o número: é que **um instrumento com ponto cego reporta zero
+com a mesma cara com que reporta zero de verdade.** O `el.children.length > 0`
+existia por um motivo bom (não contar duas vezes) e custou dois achados.
+Quem for medir contraste nesta página de novo: percorra nós de texto.
+
+### 7.3 O que continua igual
+
+O cartão continua com os mesmos números, o mesmo nome e o mesmo desenho —
+nada foi inventado nem removido. As páginas legais seguem intocadas:
+conferido depois que `privacidade.html` renderiza com os 16 cabeçalhos, o
+rodapé no lugar, sem cartão, sem tarja e sem rolagem horizontal.
