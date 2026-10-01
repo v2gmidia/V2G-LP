@@ -19,13 +19,15 @@
     });
     var dois = function (n) { return n < 10 ? '0' + n : String(n); };
     var timer;
-    var anima = document.documentElement.classList.contains('mov');
+    // sem movimento se a pessoa pediu "reduzir movimento", mesmo que mude isso com a página aberta
+    var semMovimento = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
 
     // escreve dígito a dígito; com movimento, só o dígito que mudou vira
     var escreve = function (el, txt) {
       var antes = el.getAttribute('data-v') || '';
       if (antes === txt) return;
       el.setAttribute('data-v', txt);
+      var anima = document.documentElement.classList.contains('mov') && !semMovimento.matches;
       if (!anima || antes.length !== txt.length) {
         el.innerHTML = txt.split('').map(function (d) { return '<i class="dig"><b>' + d + '</b></i>'; }).join('');
         return;
@@ -138,7 +140,7 @@
     nome: function (v) { return v.trim().length >= 2 ? '' : 'Escreva seu nome.'; },
     whatsapp: function (v) {
       var d = v.replace(/\D/g, '');
-      if (d.length < 10 || d.length > 11 || d[0] === '0') return 'Coloque o WhatsApp com DDD, só números.';
+      if (d.length < 10 || d.length > 11 || d[0] === '0') return 'Confira o WhatsApp: DDD + número, como (11) 91234-5678.';
       if (d.length === 11 && d[2] !== '9') return 'Confira o número: celular com 11 dígitos começa com 9 depois do DDD.';
       return '';
     },
@@ -185,14 +187,21 @@
     return msg;
   };
 
-  // revalida ao sair do campo (só depois do primeiro erro, para não brigar com quem está digitando)
+  // valida ao sair do campo (blur) e ao escolher (change).
+  // Campo de texto que a pessoa nem começou a preencher não ganha erro só por receber foco.
   Object.keys(regras).forEach(function (nome) {
     var el = $(nome);
     if (!el) return;
     var lista = el.length && !el.tagName ? Array.prototype.slice.call(el) : [el];
     lista.forEach(function (x) {
-      x.addEventListener(x.type === 'radio' || x.type === 'checkbox' || x.tagName === 'SELECT' ? 'change' : 'blur', function () {
-        if (campoDe(nome) && campoDe(nome).classList.contains('invalido')) valida(nome);
+      var escolha = x.type === 'radio' || x.type === 'checkbox' || x.tagName === 'SELECT';
+      var mexeu = false;
+      if (!escolha) x.addEventListener('input', function () {
+        mexeu = true;
+        if (campoDe(nome) && campoDe(nome).classList.contains('invalido')) valida(nome); // some o erro assim que corrige
+      });
+      x.addEventListener(escolha ? 'change' : 'blur', function () {
+        if (escolha || mexeu || x.value !== '' || (campoDe(nome) && campoDe(nome).classList.contains('invalido'))) valida(nome);
       });
     });
   });

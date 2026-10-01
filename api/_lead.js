@@ -45,7 +45,7 @@ function validaLead(corpo) {
   let whatsapp = texto(b.whatsapp, 30).replace(/\D/g, '');
   if (whatsapp.length > 11 && whatsapp.startsWith('55')) whatsapp = whatsapp.slice(2);
   if (!/^[1-9][0-9]{9,10}$/.test(whatsapp) || (whatsapp.length === 11 && whatsapp[2] !== '9')) {
-    campos.whatsapp = 'Coloque o WhatsApp com DDD, só números.';
+    campos.whatsapp = 'Confira o WhatsApp: DDD + número, como (11) 91234-5678.';
   }
 
   const email = texto(b.email, 160).toLowerCase();

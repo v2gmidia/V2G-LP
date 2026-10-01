@@ -43,9 +43,12 @@ assets/lp.css, lp.js       Estilos e scripts da landing (cronômetro + formulár
 assets/marca/              Logo (PROVISÓRIA, redesenhada em SVG), símbolo e blocos pixelados
 assets/og-v2g.png          Imagem de compartilhamento 1200x630
 assets/fontes/             Plus Jakarta Sans (landing) e Archivo (páginas legais), hospedadas aqui
+404.html                   Página de erro (a Vercel serve sozinha)
+robots.txt, sitemap.xml    Para buscadores
+vercel.json                cleanUrls + cabeçalhos X-Frame-Options e X-Content-Type-Options
 
 privacidade.html, termos.html, exclusao-de-dados.html
-                           Páginas legais. Ainda usam v2g.css, v2g-landing.css, v2g-legal.css,
-                           v2g.js e xlink.js. Não mexer sem revisão: as URLs podem estar
-                           cadastradas no app da Meta.
+                           Páginas legais. Ainda usam v2g.css, v2g-landing.css, v2g-legal.css
+                           e v2g.js. Não mexer sem revisão: as URLs podem estar cadastradas
+                           no app da Meta.
 ```

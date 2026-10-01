@@ -357,9 +357,10 @@ input::placeholder { color: #8390AA; }
 .com-prefixo input { border-radius: 0 10px 10px 0; }
 
 .opcoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.opcao { position: relative; display: block; cursor: pointer; }
+.opcao { position: relative; display: flex; cursor: pointer; } /* flex: os dois botões da linha ficam com a mesma altura */
 .opcao input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
 .opcao span {
+  flex: 1; width: 100%;
   display: flex; align-items: center; justify-content: center; text-align: center;
   min-height: 52px; padding: 10px 12px; border-radius: 10px;
   border: 1.5px solid #B9C3D9; font-weight: 700; font-size: .95rem; line-height: 1.25;
@@ -437,6 +438,7 @@ input::placeholder { color: #8390AA; }
 .dig b.sai { position: absolute; inset: 0; animation: dig-sai .38s cubic-bezier(.4, 0, .6, 1) forwards; }
 @keyframes dig-entra { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes dig-sai { to { transform: translateY(100%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dig b.entra { animation: none; } .dig b.sai { display: none; } }
 
 /* --- hero: título palavra por palavra, depois o resto --- */
 .mov #hero-titulo { opacity: 0; }
@@ -458,8 +460,8 @@ input::placeholder { color: #8390AA; }
 /* --- hero: blocos pixelados (viram SVG inline via JS) --- */
 .mov img.hero-pixels { opacity: 0; }
 svg.hero-pixels rect { transform-box: fill-box; transform-origin: center; will-change: transform, opacity; }
-svg.hero-pixels .respira { animation: respira 5.5s ease-in-out infinite; }
-svg.hero-pixels .respira:nth-of-type(2n) { animation-duration: 7s; animation-delay: -2s; }
+.mov svg.hero-pixels .respira { animation: respira 5.5s ease-in-out infinite; }
+.mov svg.hero-pixels .respira:nth-of-type(2n) { animation-duration: 7s; animation-delay: -2s; }
 @keyframes respira { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
 
 /* --- seções: fade + subida curta, com escada nos cards --- */

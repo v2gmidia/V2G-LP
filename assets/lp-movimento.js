@@ -9,6 +9,11 @@
   var raiz = document.documentElement;
   if (!raiz.classList.contains('mov')) return;
   window.V2G_MOV_OK = true;
+  var pedeReduzir = matchMedia('(prefers-reduced-motion: reduce)');
+  var paraTudo = function () { if (pedeReduzir.matches) raiz.classList.remove('mov'); };
+  if (pedeReduzir.addEventListener) pedeReduzir.addEventListener('change', paraTudo);
+  else if (pedeReduzir.addListener) pedeReduzir.addListener(paraTudo);
+  var semMov = function () { return !raiz.classList.contains('mov'); };
 
   var mouseFino = matchMedia('(hover: hover) and (pointer: fine)').matches;
   var naTela = function (el, cb, limiar) {
@@ -109,7 +114,7 @@
       });
       if (mexendo || mouse || ondas.length) requestAnimationFrame(quadro); else rodando = false;
     }
-    var liga = function () { if (!rodando && ativo) { rodando = true; requestAnimationFrame(quadro); } };
+    var liga = function () { if (!rodando && ativo && !semMov()) { rodando = true; requestAnimationFrame(quadro); } };
 
     if (mouseFino) {
       hero.addEventListener('pointermove', function (e) { mouse = { x: e.clientX, y: e.clientY }; liga(); }, { passive: true });
@@ -127,7 +132,7 @@
     var marca = lima[lima.length - 1];
     var candidatos = blocos.filter(function (b) { return /^#(0048F8|0040E0|1A5BFF|3D74FF)$/i.test(b.cor); });
     var pula = function () {
-      if (!ativo || document.hidden || !marca || !candidatos.length) return;
+      if (semMov() || !ativo || document.hidden || !marca || !candidatos.length) return;
       var novo = candidatos[Math.floor(Math.random() * candidatos.length)];
       var antigo = marca;
       antigo.el.animate([{ transform: 'scale(1)' }, { transform: 'scale(.4)', opacity: 0.3 }, { transform: 'scale(1)' }], { duration: 420, easing: 'ease-in-out' });

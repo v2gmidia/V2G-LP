@@ -23,7 +23,8 @@ const handler = require(path.join(RAIZ, 'api', 'pre-cadastro.js'));
 
 const TIPOS = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-  '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.ico': 'image/x-icon', '.txt': 'text/plain; charset=utf-8'
+  '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.ico': 'image/x-icon', '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8'
 };
 
 function lerCorpo(req) {
@@ -41,6 +42,9 @@ function lerCorpo(req) {
 
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
+  // os mesmos cabeçalhos do vercel.json
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
 
   if (url.pathname === '/api/pre-cadastro') {
     if (req.method === 'POST') req.body = await lerCorpo(req);
@@ -53,7 +57,11 @@ http.createServer(async (req, res) => {
   else if (!path.extname(arquivo) && fs.existsSync(arquivo + '.html')) arquivo += '.html';
 
   fs.readFile(arquivo, (erro, conteudo) => {
-    if (erro) { res.statusCode = 404; return res.end('404'); }
+    if (erro) { // como a Vercel: serve o 404.html com status 404
+      res.statusCode = 404;
+      res.setHeader('Content-Type', TIPOS['.html']);
+      return fs.createReadStream(path.join(RAIZ, '404.html')).pipe(res);
+    }
     res.setHeader('Content-Type', TIPOS[path.extname(arquivo)] || 'application/octet-stream');
     res.end(conteudo);
   });
