@@ -1,0 +1,6 @@
+# Não publicar no site: documentação interna, SQL e ferramentas locais.
+docs/
+supabase/
+scripts/
+README.md
+.env*

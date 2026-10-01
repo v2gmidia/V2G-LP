@@ -1,448 +1,411 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>V2G — O gestor de tráfego que sua empresa merecia ter, sem pagar preço de agência.</title>
-<meta name="description" content="A V2G roda os anúncios do seu negócio no Meta, cria seus criativos e te mostra, em tempo real, pra onde foi cada real investido. A partir de R$ 490/mês, sem fidelidade.">
-<meta name="facebook-domain-verification" content="fnyp1kawr8b04drc0xuizjbhl1342h" />
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-T7G35WTM');</script>
-<!-- End Google Tag Manager -->
+<!-- Movimento só com JS e sem "reduzir movimento". Se o JS falhar, em 2,5 s tudo aparece parado. -->
+<script>!function(d){d.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mov");setTimeout(function(){window.V2G_MOV_OK||d.classList.remove("mov")},2500)}}(document.documentElement)</script>
+<title>V2G — Gestão de tráfego sem gestor de tráfego</title>
+<meta name="description" content="Seus anúncios rodando no Instagram e no Facebook. E você sabendo por quê. Pré-cadastro aberto para os primeiros negócios.">
+<meta name="theme-color" content="#0048F8">
+<link rel="canonical" href="https://v2gmidia.com.br/">
 
-<!-- Google tag (gtag.js) — GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7KV2HDPHWG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7KV2HDPHWG');
-</script>
-<link rel="stylesheet" href="assets/v2g.css">
-<link rel="stylesheet" href="assets/v2g-landing.css">
-<script>document.documentElement.className += " js";</script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="V2G">
+<meta property="og:url" content="https://v2gmidia.com.br/">
+<meta property="og:title" content="V2G — Gestão de tráfego sem gestor de tráfego.">
+<meta property="og:description" content="Seus anúncios rodando. E você sabendo por quê. Pré-cadastro aberto para os primeiros negócios.">
+<meta property="og:image" content="https://v2gmidia.com.br/assets/og-v2g.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="V2G: Gestão de tráfego sem gestor de tráfego.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="V2G — Gestão de tráfego sem gestor de tráfego.">
+<meta name="twitter:description" content="Seus anúncios rodando. E você sabendo por quê. Pré-cadastro aberto para os primeiros negócios.">
+<meta name="twitter:image" content="https://v2gmidia.com.br/assets/og-v2g.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fontes/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/lp.css">
 </head>
-<body class="lp">
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7G35WTM"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<body>
 
-<!-- ============================================================ NAV ============================================================ -->
-<nav class="lp-nav">
-  <div class="lp-container">
-    <a class="brand" href="/">
-      <div class="mark" data-mark style="--px:8px; --mark-c:var(--offwhite); --mark-off:rgba(171,234,253,0.18)"></div>
-      <div class="wm">V2G<small>Tráfego no piloto</small></div>
-    </a>
-    <div class="nav-links">
-      <a class="txt" href="#como-funciona">Como funciona</a>
-      <a class="txt" href="#preco">Preço</a>
-      <a class="txt" href="#duvidas">Dúvidas</a>
-      <a class="btn btn-light btn-nav" data-lead href="#">Análise gratuita</a>
-    </div>
-  </div>
-</nav>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-<!-- ============================================================ 1. HERO ============================================================ -->
-<header class="hero">
-  <div class="dotgrid"></div>
-  <div class="lp-container hero-inner">
-    <div class="hero-copy">
-      <div class="hero-mark"><div class="mark" data-mark style="--px:11px"></div></div>
-      <h1>O gestor de tráfego que sua empresa merecia ter — <em>sem pagar preço de agência.</em></h1>
-      <p class="hero-sub">A V2G roda os anúncios do seu negócio no Meta, cria seus criativos e te mostra, em tempo real, pra onde foi cada real investido. Você no controle, sem precisar entender de marketing.</p>
-      <div class="cta-stack">
-        <a class="btn btn-light btn-lg" data-lead href="https://api.whatsapp.com/send/?phone=5521936182176&amp;text=Oi%21+Quero+fazer+a+an%C3%A1lise+gratuita+do+meu+neg%C3%B3cio.&amp;type=phone_number&amp;app_absent=0">Fazer análise gratuita do meu negócio <span class="arrow">&rarr;</span></a>
-        <a class="cta-sub-link" data-x="conteudo" href="tela-01-login-cadastro-desktop.html">Ou comece agora por conta própria <span class="arrow">&rarr;</span></a>
-        <p class="cta-reinforce">A partir de R$ 490/mês. Sem contrato de fidelidade. Cancele quando quiser.</p>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <!-- ============================================================
-           A TARJA DE EXEMPLO, POSTA EM 22/08/2026.
-
-           Este cartão mostra "Doceria da Marina", um retorno de R$ 3,40 por
-           real investido e 14 vendas na semana. Nada disso aconteceu: no dia
-           em que isto foi escrito o banco de produção tinha ZERO campanhas e
-           ZERO dias de métrica. Nenhuma campanha da V2G tinha ido ao ar.
-
-           O cartão não sai e os números não mudam — ele mostra como a tela
-           fica, e isso é legítimo. O que não era legítimo é ele AFIRMAR,
-           sem nada por perto dizendo que é simulação. É o mesmo defeito que
-           o app passou semanas matando (interface afirmando resultado que
-           não existe), e aqui é pior: é a primeira coisa que a pessoa lê.
-
-           A tarja é o primeiro filho do cartão de propósito — quem lê de
-           cima para baixo encontra a palavra antes do número. E ela é do
-           tamanho do texto do cartão, não menor: aviso em letra miúda é a
-           forma educada de esconder.
-           ============================================================ -->
-      <div class="proof-float">
-        <p class="pf-exemplo"><b>Exemplo</b> <span>Tela de demonstração — não é resultado de cliente.</span></p>
-        <div class="pf-top">
-          <span class="pf-avatar">M</span>
-          <span class="pf-who"><b>Doceria da Marina</b><span>Terça, 8h41 · plano ativo</span></span>
-        </div>
-        <p class="pf-phrase">Pra cada R$ 1 que você colocou, voltaram <b>R$ 3,40</b></p>
-        <div class="pf-metrics">
-          <div class="pf-m"><span class="l">Vendas na semana</span><span class="v win">14</span></div>
-          <div class="pf-m"><span class="l">Investido</span><span class="v">R$ 620</span></div>
-        </div>
-        <span class="pf-tag">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="3" y="1" width="6" height="4"/><rect x="1" y="2" width="2" height="2"/><rect x="9" y="2" width="2" height="2"/><rect x="4" y="5" width="4" height="2"/><rect x="5" y="7" width="2" height="2"/><rect x="3" y="9" width="6" height="2"/></svg>
-          Meta da semana batida
-        </span>
-      </div>
-    </div>
+<header class="topo">
+  <div class="faixa">
+    <a href="/" class="logo" aria-label="V2G, início"><img src="/assets/marca/v2g-logo.svg" alt="V2G" width="104" height="31"></a>
+    <a href="#pre-cadastro" class="topo-link">Pré-cadastro</a>
   </div>
 </header>
 
-<!-- ============================================================ 2. A DOR ============================================================ -->
-<section class="section">
-  <div class="lp-container">
-    <div class="sec-head reveal">
-      <h2>Você já sabe como isso costuma terminar.</h2>
-    </div>
-    <div class="sec-body reveal">
-      <p>Você contrata uma agência. Assina um contrato de meses. Fala com um gestor que você nunca viu a cara. Todo mês chega um relatório bonito, cheio de número que ninguém explica direito — e no fim você não sabe se aquilo tá dando certo.</p>
-      <p>Aí você fica com aquela sensação: <i>"Tô pagando caro por uma coisa que eu não entendo e não controlo."</i></p>
-      <p>Ou pior: você nem chega a contratar. Acha que R$ 2.000 por mês é preço de empresa grande, que marketing digital "não é pra você", e deixa seu negócio invisível na internet enquanto o concorrente aparece.</p>
-      <p class="turn-line">O problema nunca foi você. Foi o jeito que te venderam <em>marketing</em> até hoje.</p>
-    </div>
-  </div>
-</section>
+<main id="conteudo">
 
-<!-- ============================================================ 3. A VIRADA ============================================================ -->
-<section class="section ice">
-  <div class="lp-container">
-    <div class="sec-head reveal">
-      <h2>Marketing que funciona pro seu negócio — <em>sem você virar especialista.</em></h2>
-    </div>
-    <div class="sec-body reveal">
-      <p>A V2G não é mais uma ferramenta complicada pra você aprender. É o time de marketing especializado que você nunca conseguiria contratar sozinho, trabalhando pelo seu negócio o tempo todo.</p>
-      <p>A gente lê o seu negócio, monta a oferta certa, cria os anúncios e coloca sua campanha pra rodar no Meta. Você acompanha tudo pelo celular, num painel que fala a sua língua: quanto entrou, quanto saiu, o que tá funcionando.</p>
-      <p>Não importa se você tem restaurante, salão, mercadinho ou uma empresa de tecnologia — a V2G já sabe o que costuma dar resultado pro seu tipo de negócio.</p>
-    </div>
-  </div>
-</section>
+  <!-- 1. HERO -->
+  <section class="hero" aria-labelledby="hero-titulo">
+    <img class="hero-pixels" src="/assets/marca/pixels-escada.svg" alt="" width="306" height="240">
+    <div class="faixa hero-grade">
+      <div class="hero-texto">
+        <h1 id="hero-titulo" class="titulo-xl">
+          <span class="azul">Gestão de tráfego</span>
+          sem gestor de tráfego<span class="ponto">.</span>
+        </h1>
+        <p class="hero-sub">Seus anúncios rodando. E você sabendo por quê.</p>
 
-<!-- ============================================================ 4. OS 3 PASSOS ============================================================ -->
-<section class="section" id="como-funciona">
-  <div class="lp-container">
-    <div class="sec-head center reveal">
-      <h2>Do seu negócio à campanha no ar, em <em>3 passos.</em></h2>
-      <p class="sec-lead">Simples, do jeito que tinha que ser desde o começo.</p>
-    </div>
-    <div class="steps">
-      <div class="step reveal">
-        <div class="s-n">1</div>
-        <h3>A gente entende o seu negócio</h3>
-        <p>Você responde algumas perguntas rápidas. Sem termo técnico, sem enrolação.</p>
-      </div>
-      <div class="step reveal">
-        <div class="s-n">2</div>
-        <h3>A V2G monta e coloca sua campanha pra rodar</h3>
-        <p>Oferta, anúncios e estrutura prontos e pensados pro seu segmento — e no ar no Meta.</p>
-      </div>
-      <div class="step reveal">
-        <div class="s-n">3</div>
-        <h3>Você acompanha e decide, no controle</h3>
-        <p>Tudo num painel claro, no seu celular. Você vê o resultado acontecendo.</p>
-      </div>
-    </div>
-    <div class="steps-cta reveal">
-      <a class="btn btn-primary btn-lg" data-lead href="#">Fazer análise gratuita do meu negócio <span class="arrow">&rarr;</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ 5. COMPARAÇÃO DE PREÇO ============================================================ -->
-<section class="section ice" id="preco">
-  <div class="lp-container">
-    <div class="sec-head center reveal">
-      <h2>Por que a V2G é a melhor opção pro seu <em>bolso?</em></h2>
-      <p class="sec-lead">Compare, item por item, o que você paga hoje e o que paga com a V2G.</p>
-    </div>
-
-    <div class="cmp reveal">
-      <div class="cmp-head">
-        <div class="h-feat">O que entra</div>
-        <div class="h-v2g">V2G</div>
-        <div class="h-mkt">Média do mercado (agência)</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-feat">Gestão de tráfego (campanha rodando)</div>
-        <div class="cmp-v2g"><span class="cmp-lbl">V2G</span><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Incluído</div>
-        <div class="cmp-mkt"><span class="cmp-lbl">Mercado</span>R$ 1.500 a R$ 3.000/mês</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-feat">Criação de criativos/anúncios</div>
-        <div class="cmp-v2g"><span class="cmp-lbl">V2G</span><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Incluído</div>
-        <div class="cmp-mkt"><span class="cmp-lbl">Mercado</span>R$ 300 a R$ 800/mês</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-feat">Estrutura de campanha por segmento</div>
-        <div class="cmp-v2g"><span class="cmp-lbl">V2G</span><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Incluído</div>
-        <div class="cmp-mkt"><span class="cmp-lbl">Mercado</span>Cobrado à parte / não oferecido</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-feat">Painel de resultados em tempo real</div>
-        <div class="cmp-v2g"><span class="cmp-lbl">V2G</span><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Incluído</div>
-        <div class="cmp-mkt"><span class="cmp-lbl">Mercado</span>Relatório mensal (quando tem)</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-feat">Contrato de fidelidade</div>
-        <div class="cmp-v2g"><span class="cmp-lbl">V2G</span>Nenhum</div>
-        <div class="cmp-mkt"><span class="cmp-lbl">Mercado</span>3 a 6 meses</div>
-      </div>
-      <div class="cmp-row total">
-        <div class="cmp-feat">Você paga por mês</div>
-        <div class="cmp-v2g"><span class="cmp-lbl">V2G</span>R$ 490</div>
-        <div class="cmp-mkt"><span class="cmp-lbl">Mercado</span>R$ 1.800 a R$ 3.800</div>
-      </div>
-    </div>
-
-    <div class="eco reveal">
-      <h3>Uma economia de até <mark>R$ 3.000 por mês.</mark></h3>
-      <p>Mesmo trabalho de especialista. Fração do preço. Sem letra miúda.</p>
-    </div>
-
-    <p class="cmp-note reveal">*Valores de mercado são médias de referência para gestão de tráfego pago no Meta. O investimento em anúncios (valor que vai pro Meta) é separado nos dois modelos e você decide quanto colocar.</p>
-
-    <div class="steps-cta reveal">
-      <a class="btn btn-primary btn-lg" data-lead href="#">Quero economizar com a V2G <span class="arrow">&rarr;</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ 6. NÃO É AGÊNCIA ============================================================ -->
-<section class="section">
-  <div class="lp-container">
-    <div class="sec-head reveal">
-      <h2>A diferença entre delegar e <em>estar no controle.</em></h2>
-    </div>
-    <div class="vs reveal">
-      <div class="vs-col them">
-        <div class="vs-h">Agência tradicional</div>
-        <div class="vs-item first">Você paga e reza</div>
-        <div class="vs-item">Contrato de meses</div>
-        <div class="vs-item">Gestor que você nunca vê</div>
-        <div class="vs-item">Relatório que ninguém entende</div>
-      </div>
-      <div class="vs-col us">
-        <div class="vs-h">V2G</div>
-        <div class="vs-item first">Você paga e acompanha tudo</div>
-        <div class="vs-item">Sem fidelidade, cancele quando quiser</div>
-        <div class="vs-item">Sua empresa na palma da sua mão</div>
-        <div class="vs-item">Painel claro, na sua língua</div>
-      </div>
-    </div>
-    <p class="vs-note reveal">Não temos nada contra agência. Só acreditamos que o pequeno negócio merece uma opção feita pra ele.</p>
-  </div>
-</section>
-
-<!-- ============================================================ 7. ANÁLISE GRATUITA ============================================================ -->
-<section class="section ice">
-  <div class="lp-container">
-    <div class="isca reveal">
-      <div class="navy-dots"></div>
-      <h2>Descubra, de graça, se o seu negócio dá resultado no tráfego pago.</h2>
-      <p class="isca-sub">Um dos nossos gestores analisa o seu caso e te mostra o cenário real — sem compromisso de contratar nada.</p>
-      <ul class="isca-list">
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Saiba se faz sentido investir em anúncios pro seu tipo de negócio agora.</li>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Entenda quanto você precisaria investir pra começar a ver resultado.</li>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Veja uma estimativa de quantos clientes o tráfego pode trazer pro seu negócio.</li>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Descubra o que já costuma funcionar no seu segmento.</li>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Saia com clareza pra decidir — mesmo que decida não contratar.</li>
-      </ul>
-      <a class="btn btn-light btn-lg" data-lead href="#">Agendar minha análise gratuita <span class="arrow">&rarr;</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ 8. PROVA SOCIAL ============================================================
-     O QUE SAIU DAQUI, EM 21/08/2026, E POR QUÊ.
-
-     Esta seção estava NO AR com o texto de rascunho visível para o
-     visitante: "[X] empresas usando a V2G", "R$ [X] em vendas geradas",
-     e três "[DEPOIMENTO CLIENTE N — foco em ...]" em itálico cinza.
-     Conferido por curl no domínio público, não presumido.
-
-     E o título dizia "Negócios como o seu já estão no controle." — que
-     também não é verdade hoje: o banco de producao tem ZERO campanhas e
-     ZERO dias de metrica. Nenhum negocio esta no controle porque nenhuma
-     campanha da V2G foi ao ar.
-
-     Nenhum redesenho conserta uma seção que promete depoimento e não tem.
-     As opções eram inventar (fora de questão), deixar (pior) ou tirar.
-
-     FICOU só a linha que o próprio autor escreveu para este caso — ela
-     começa com "Enquanto não houver case" e é verdadeira.
-
-     QUANDO VOLTA: com cliente de verdade e número medido, não número
-     redondo. O lugar dela na ordem (depois do preço, antes dos três
-     "nãos") continua sendo o certo.
-
-     Registro completo em docs/prova-social-e-legibilidade.md §2.1.
-     ============================================================ -->
-<section class="section">
-  <div class="lp-container">
-    <p class="social-fallback reveal">Enquanto não houver case: <b>construído por quem já gerenciou milhões em anúncios no Meta.</b></p>
-  </div>
-</section>
-
-<!-- ============================================================ 9. PREÇO ============================================================ -->
-<section class="section ice">
-  <div class="lp-container">
-    <div class="sec-head center reveal">
-      <h2>Um preço que cabe no seu <em>negócio.</em></h2>
-    </div>
-
-    <div class="plan reveal">
-      <div class="p-name">Plano V2G</div>
-      <div class="p-price">R$ 490<small>/mês</small></div>
-      <p class="p-fid">Sem contrato de fidelidade. Cancele quando quiser.</p>
-      <ul>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Campanha de tráfego rodando no Meta pelo seu negócio</li>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Criativos criados pra você</li>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Oferta e estrutura pensadas pro seu segmento</li>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Painel de resultados em tempo real, no seu celular</li>
-        <li><span class="tk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5.5 4 8 8.5 2.5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></span>Suporte quando você precisar</li>
-      </ul>
-      <a class="btn btn-primary btn-lg" data-x="conteudo" href="tela-01-login-cadastro-desktop.html">Começar agora <span class="arrow">&rarr;</span></a>
-      <a class="cta-sub-link" data-lead href="#">Prefiro fazer a análise gratuita antes <span class="arrow">&rarr;</span></a>
-      <p class="p-obs">O investimento em anúncios (o valor que vai pro Meta) é separado e você decide quanto colocar. A V2G cuida de tudo pra esse dinheiro trabalhar do jeito certo.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ 10. FAQ ============================================================ -->
-<section class="section" id="duvidas">
-  <div class="lp-narrow">
-    <div class="sec-head center reveal">
-      <h2>Ainda com dúvida? Normal.</h2>
-    </div>
-    <div class="faq reveal">
-      <details>
-        <summary>Eu não entendo nada de marketing. Consigo usar? <span class="chev"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v10M4 9h10"/></svg></span></summary>
-        <div class="faq-body">Esse é exatamente o ponto. A V2G foi feita pra quem nunca entendeu de marketing. Você não precisa saber o que é campanha, criativo ou público — a gente cuida disso. Você só acompanha o resultado.</div>
-      </details>
-      <details>
-        <summary>Já me queimei com agência. Por que seria diferente? <span class="chev"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v10M4 9h10"/></svg></span></summary>
-        <div class="faq-body">Porque aqui você não delega no escuro. Você vê tudo o que está acontecendo, o tempo todo, e não fica preso a contrato nenhum. Se não fizer sentido pra você, é só cancelar.</div>
-      </details>
-      <details>
-        <summary>R$ 490 é o valor final? <span class="chev"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v10M4 9h10"/></svg></span></summary>
-        <div class="faq-body">Esse é o valor da V2G. O quanto você investe em anúncios (o dinheiro que vai pro Meta) é à parte e você controla. A gente sempre deixa isso claro — nada de letra miúda.</div>
-      </details>
-      <details>
-        <summary>Preciso ficar mexendo todo dia? <span class="chev"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v10M4 9h10"/></svg></span></summary>
-        <div class="faq-body">Não. A V2G trabalha sozinha. O ideal é você dar uma olhada no painel de vez em quando pra acompanhar — mas quem faz o trabalho é a gente.</div>
-      </details>
-      <details>
-        <summary>A análise gratuita tem pegadinha? <span class="chev"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v10M4 9h10"/></svg></span></summary>
-        <div class="faq-body">Nenhuma. Um gestor olha o seu negócio, te mostra o cenário real e você decide. Se não fizer sentido contratar, você sai com a análise mesmo assim.</div>
-      </details>
-      <details>
-        <summary>Meu negócio é muito pequeno / muito de nicho. Funciona pra mim? <span class="chev"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v10M4 9h10"/></svg></span></summary>
-        <div class="faq-body">Provavelmente sim — a V2G trabalha com vários segmentos. Mas a forma mais honesta de saber é fazer a análise gratuita: o gestor te diz na hora se faz sentido pro seu caso.</div>
-      </details>
-      <details>
-        <summary>E se eu invisto mais de R$ 5 mil por mês? <span class="chev"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v10M4 9h10"/></svg></span></summary>
-        <div class="faq-body">Aí seu negócio já pede uma estrutura mais robusta. Fala com a gente que a gente te direciona pra melhor solução pro seu caso.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ 11. CTA FINAL ============================================================ -->
-<section class="section">
-  <div class="lp-container">
-    <div class="final-cta reveal">
-      <div class="fc-dots"></div>
-      <div class="fc-body">
-        <h2>Sua empresa já devia estar aparecendo. <em>Bora começar?</em></h2>
-        <p>Faça a análise gratuita e descubra o potencial do seu negócio no tráfego pago — sem compromisso. Se fizer sentido, sua campanha pode estar no ar em minutos.</p>
-        <div class="cta-stack center">
-          <a class="btn btn-light btn-lg" data-lead href="#">Fazer análise gratuita do meu negócio <span class="arrow">&rarr;</span></a>
-          <a class="cta-sub-link" data-x="conteudo" href="tela-01-login-cadastro-desktop.html">Ou começo agora por conta própria <span class="arrow">&rarr;</span></a>
+        <div class="cronometro" id="cronometro">
+          <p class="cronometro-rotulo"><i class="quadrado" aria-hidden="true"></i>Lançamento do app V2G</p>
+          <div class="cronometro-relogio" aria-hidden="true">
+            <div class="bloco"><span data-unidade="dias">--</span><small>dias</small></div>
+            <div class="bloco"><span data-unidade="horas">--</span><small>horas</small></div>
+            <div class="bloco"><span data-unidade="minutos">--</span><small>min</small></div>
+            <div class="bloco"><span data-unidade="segundos">--</span><small>seg</small></div>
+          </div>
+          <p class="cronometro-data">9 de novembro de 2026, 00h (horário de Brasília)</p>
         </div>
-        <p class="fc-fine">A partir de R$ 490/mês · Sem fidelidade · Você no controle</p>
+
+        <a href="#pre-cadastro" class="botao botao-principal">Quero ser um dos primeiros <span aria-hidden="true">→</span></a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============================================================ RODAPÉ ============================================================ -->
-<footer class="lp-footer">
-  <div class="lp-container">
-    <div class="f-brand">
-      <div class="mark" data-mark style="--px:7px; --mark-c:var(--offwhite); --mark-off:rgba(171,234,253,0.18)"></div>
-      <span class="wm">V2G</span>
+  <!-- 2. O PROBLEMA -->
+  <section class="secao" aria-labelledby="problema-titulo">
+    <div class="faixa duas-colunas">
+      <div>
+        <p class="sobretitulo">O problema</p>
+        <h2 id="problema-titulo" class="titulo-l">
+          <span class="azul">Agência cresce vendendo.</span>
+          A atenção não cresce junto<span class="ponto">.</span>
+        </h2>
+        <p class="texto">Você não paga por resultado. Paga por tempo de gente. E esse tempo está dividido entre muitos clientes.</p>
+        <p class="texto">Quando entram mais contas, a atenção se divide. Menos olho na sua verba, ajuste mais lento, detalhe importante passando batido. A pessoa do outro lado sabe o que está fazendo. O problema é que o modelo obriga ela a fazer tudo na mão, conta por conta.</p>
+      </div>
+      <figure class="atencao" aria-labelledby="atencao-legenda">
+        <div class="atencao-grade" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i class="sua"></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <figcaption id="atencao-legenda"><strong>Uma pessoa. Muitas contas.</strong> A verde é a sua. É essa fatia de atenção que você está pagando.</figcaption>
+      </figure>
     </div>
-    <div class="f-links">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#preco">Preço</a>
-      <a href="#duvidas">Dúvidas</a>
-      <a data-x="conteudo" href="tela-01-login-cadastro-desktop.html">Entrar</a>
-      <a href="/privacidade">Privacidade</a>
-      <a href="/termos">Termos de uso</a>
-      <a href="/exclusao-de-dados">Exclusão de dados</a>
+    <div class="faixa">
+      <blockquote class="frase-forte">
+        <p>Não é caro porque é difícil. É caro porque tem alguém fazendo na mão<span class="ponto">.</span></p>
+      </blockquote>
     </div>
-    <p class="f-legal">V2G AGENCIAS DE PUBLICIDADE LTDA · CNPJ 68.105.468/0001-84<br>Rua Visconde do Rio Branco, 1488, Conj 909 Andar 09, Cond Universe Life Square bloco Com., Centro, Curitiba/PR, CEP 80420-210</p>
+  </section>
+
+  <!-- 3. O QUE A V2G FAZ -->
+  <section class="secao secao-gelo" aria-labelledby="faz-titulo">
+    <div class="faixa">
+      <p class="sobretitulo">O que a V2G faz</p>
+      <h2 id="faz-titulo" class="titulo-l">
+        <span class="azul">A parte repetitiva sai da mão.</span>
+        Você fica com a resposta<span class="ponto">.</span>
+      </h2>
+      <ol class="faz-lista">
+        <li><i class="quadrado" aria-hidden="true"></i><div><strong>A gente lê o seu negócio.</strong> O que você vende, pra quem, como a venda fecha.</div></li>
+        <li><i class="quadrado" aria-hidden="true"></i><div><strong>Estrutura a sua oferta.</strong> O que o anúncio vai prometer e por que alguém vai chamar.</div></li>
+        <li><i class="quadrado" aria-hidden="true"></i><div><strong>Cria os anúncios.</strong> O texto e a imagem, a partir do que você já mostra no Instagram.</div></li>
+        <li><i class="quadrado" aria-hidden="true"></i><div><strong>Roda a campanha.</strong> No Instagram e no Facebook, levando a conversa pro seu WhatsApp ou direct.</div></li>
+        <li><i class="quadrado" aria-hidden="true"></i><div><strong>Te mostra pra onde foi cada real.</strong> Quanto gastou, quantas pessoas chegaram, o que vai mudar.</div></li>
+      </ol>
+      <div class="cartoes-dois">
+        <div class="cartao cartao-destaque">
+          <h3>A conta de anúncio é sua<span class="ponto">.</span></h3>
+          <p>Fica no seu nome. A gente opera dentro dela com a sua permissão. Se quiser sair, você tira o nosso acesso e leva tudo.</p>
+        </div>
+        <div class="cartao">
+          <h3>Onde seus anúncios aparecem</h3>
+          <ul class="canais">
+            <li><span>Instagram</span><em class="tag tag-ok">agora</em></li>
+            <li><span>Facebook</span><em class="tag tag-ok">agora</em></li>
+            <li><span>Google</span><em class="tag">em breve</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. COMO FUNCIONA -->
+  <section class="secao" aria-labelledby="como-titulo">
+    <div class="faixa como-grade">
+      <div class="como-cabeca">
+        <p class="sobretitulo">Como funciona</p>
+        <h2 id="como-titulo" class="titulo-l">
+          <span class="azul">Você mostra seu negócio.</span>
+          A V2G organiza a execução<span class="ponto">.</span>
+        </h2>
+      </div>
+      <div class="como-corpo">
+      <div class="passos-caixa">
+      <span class="passos-linha" aria-hidden="true"><i></i></span>
+      <ol class="passos">
+        <li class="passo"><span class="passo-num">01</span><h3>Você conta como o negócio funciona <small>(onboarding)</small></h3><p>Como você atrai cliente, onde está o seu dinheiro hoje, o que mais vende.</p></li>
+        <li class="passo"><span class="passo-num">02</span><h3>A gente estuda o seu material <small>(análise)</small></h3><p>Fotos, vídeos e textos do seu Instagram e do seu site.</p></li>
+        <li class="passo"><span class="passo-num">03</span><h3>Monta a oferta e os anúncios <small>(estrutura)</small></h3><p>O que dizer, pra quem mostrar, com qual imagem.</p></li>
+        <li class="passo"><span class="passo-num">04</span><h3>O anúncio vai pro ar <small>(campanha no ar)</small></h3><p>Publicação e primeiros testes pra ver o que chama mais gente.</p></li>
+        <li class="passo"><span class="passo-num">05</span><h3>A gente acompanha <small>(acompanhamento)</small></h3><p>Você vê o que está acontecendo, recebe aviso quando algo muda e o anúncio ganha imagem nova quando cansa.</p></li>
+        <li class="passo"><span class="passo-num">06</span><h3>Você decide <small>(decisão)</small></h3><p>Manter, pausar ou investir mais. Sabendo por quê.</p></li>
+      </ol>
+      </div>
+      <p class="resultado"><i class="quadrado quadrado-marinho" aria-hidden="true"></i>No fim: mais clareza sobre o seu próprio negócio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PARA QUEM É -->
+  <section class="secao secao-gelo" aria-labelledby="quem-titulo">
+    <div class="faixa">
+      <p class="sobretitulo">Para quem é</p>
+      <h2 id="quem-titulo" class="titulo-l">
+        <span class="azul">Feito para quem vende</span>
+        na conversa<span class="ponto">.</span>
+      </h2>
+      <div class="cartao cartao-grande">
+        <h3>Dono de negócio</h3>
+        <ul class="marcados">
+          <li>Você fecha venda pelo WhatsApp ou pelo direct.</li>
+          <li>Seu Instagram está ativo, com foto e vídeo do que você vende.</li>
+          <li>Você quer anunciar sem precisar virar especialista em anúncio.</li>
+        </ul>
+      </div>
+      <div class="quem-linha">
+        <div class="cartao cartao-par">
+          <p class="sobretitulo sobretitulo-claro">Agência ou quem atende clientes</p>
+          <h3>Mais contas, sem mais gestores<span class="ponto">.</span></h3>
+          <p>Cada cliente novo não precisa custar mais um salário. A parte que todo mundo faz igual (montar campanha, trocar imagem, conferir número) sai da mão do seu time. A parte que diferencia o seu trabalho continua sua.</p>
+        </div>
+        <div class="cartao cartao-nao">
+          <h3>Para quem não é</h3>
+          <ul class="riscados">
+            <li>Loja virtual ou venda com muitas etapas até a compra <small>(e-commerce e funil complexo)</small>.</li>
+            <li>Quem ainda não tem Instagram ativo.</li>
+            <li>Quem quer só “post bonito”, sem meta de venda.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. ONDE ESTAMOS -->
+  <section class="secao" aria-labelledby="onde-titulo">
+    <div class="faixa">
+      <p class="sobretitulo">Onde estamos</p>
+      <h2 id="onde-titulo" class="titulo-l">Onde estamos<span class="ponto">.</span></h2>
+      <ol class="etapas">
+        <li class="etapa etapa-hoje">
+          <p class="etapa-quando"><em class="tag tag-lima">Estamos aqui</em> Hoje</p>
+          <p>Atendendo poucos negócios por vez, com acompanhamento de perto. Estamos escolhendo quem entra nesta fase.</p>
+          <p class="etapa-nota">O sistema que monta as campanhas está em teste com os primeiros clientes.</p>
+        </li>
+        <li class="etapa etapa-data">
+          <p class="etapa-quando"><time datetime="2026-11-09">09/11/2026</time></p>
+          <p>Lançamento do app V2G.</p>
+        </li>
+        <li class="etapa etapa-depois">
+          <p class="etapa-quando">Depois</p>
+          <ul>
+            <li>Você configura sozinho, no app.</li>
+            <li>Assinatura dentro do app.</li>
+            <li>App no celular.</li>
+            <li>Mais canais, como o Google.</li>
+          </ul>
+        </li>
+      </ol>
+      <a href="#pre-cadastro" class="botao botao-principal">Quero ser um dos primeiros <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- 7. PERGUNTAS -->
+  <section class="secao secao-gelo" aria-labelledby="faq-titulo">
+    <div class="faixa faixa-estreita">
+      <p class="sobretitulo">Perguntas frequentes</p>
+      <h2 id="faq-titulo" class="titulo-l">Perguntas que todo mundo faz<span class="ponto">.</span></h2>
+      <div class="faq">
+        <details>
+          <summary>Como funciona?</summary>
+          <p>Você conta o que o seu negócio faz. A gente escreve o anúncio, cria a imagem e coloca no ar no Instagram e no Facebook. Aí te mostra quanto gastou e quantas pessoas chegaram.</p>
+        </details>
+        <details>
+          <summary>É seguro? É meu dinheiro.</summary>
+          <p>A conta de anúncio é sua, no seu nome. A gente opera dentro dela com a sua permissão. Você vê tudo e pode tirar o nosso acesso quando quiser.</p>
+        </details>
+        <details>
+          <summary>Preciso saber mexer?</summary>
+          <p>Não. Se você usa WhatsApp, você dá conta. E se travar, a gente resolve com você.</p>
+        </details>
+        <details>
+          <summary>Quem cuida da minha conta?</summary>
+          <p>Hoje tem gente nossa acompanhando cada conta. Isso é de propósito: nesta fase, o que a gente faz na mão vira regra do sistema.</p>
+        </details>
+        <details>
+          <summary>Vocês têm case?</summary>
+          <p>Ainda não temos case publicado com número, e não vamos inventar um. O que dá pra mostrar é como a campanha é montada e o que você vai acompanhar. Se fizer sentido, o case pode ser o seu.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FORMULÁRIO -->
+  <section class="secao secao-marinho" id="pre-cadastro" aria-labelledby="form-titulo" tabindex="-1">
+    <div class="faixa faixa-estreita">
+      <h2 id="form-titulo" class="titulo-l titulo-claro">Quer ser um dos primeiros<span class="ponto">?</span></h2>
+      <p class="texto texto-claro">Estamos atendendo um por um e escolhendo quem entra agora. Leva uns dois minutos.</p>
+
+      <div class="form-caixa" id="form-caixa">
+        <form id="form-pre-cadastro" action="/api/pre-cadastro" method="post" novalidate>
+          <p class="form-aviso">Todos os campos são obrigatórios, menos o site.</p>
+
+          <div class="campo">
+            <label for="f-nome">Seu nome</label>
+            <input id="f-nome" name="nome" type="text" autocomplete="name" required maxlength="120">
+            <p class="erro" id="e-nome"></p>
+          </div>
+
+          <div class="campo">
+            <label for="f-whatsapp">WhatsApp com DDD</label>
+            <input id="f-whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(11) 91234-5678" required maxlength="16">
+            <p class="erro" id="e-whatsapp"></p>
+          </div>
+
+          <div class="campo">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160">
+            <p class="erro" id="e-email"></p>
+          </div>
+
+          <div class="campo">
+            <label for="f-negocio">Nome do negócio</label>
+            <input id="f-negocio" name="negocio" type="text" autocomplete="organization" required maxlength="120">
+            <p class="erro" id="e-negocio"></p>
+          </div>
+
+          <div class="campo">
+            <label for="f-nicho">Ramo do negócio</label>
+            <select id="f-nicho" name="nicho" required>
+              <option value="">Escolha uma opção</option>
+              <option value="restaurante_delivery">Restaurante / delivery</option>
+              <option value="salao_estetica">Salão / estética</option>
+              <option value="clinica_saude">Clínica / saúde</option>
+              <option value="loja_varejo">Loja / varejo</option>
+              <option value="servicos_profissionais">Serviços profissionais (advocacia, arquitetura, contabilidade)</option>
+              <option value="servicos_locais">Serviços locais (reparos, oficina)</option>
+              <option value="outro">Outro</option>
+            </select>
+            <p class="erro" id="e-nicho"></p>
+          </div>
+
+          <div class="campo" id="campo-nicho-outro">
+            <label for="f-nicho-outro">Se marcou “Outro”, qual ramo?</label>
+            <input id="f-nicho-outro" name="nicho_outro" type="text" maxlength="80">
+            <p class="erro" id="e-nicho_outro"></p>
+          </div>
+
+          <div class="campo">
+            <label for="f-instagram">@ do Instagram do negócio</label>
+            <div class="com-prefixo"><span aria-hidden="true">@</span><input id="f-instagram" name="instagram" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="31"></div>
+            <p class="erro" id="e-instagram"></p>
+          </div>
+
+          <fieldset class="campo">
+            <legend>Você é</legend>
+            <div class="opcoes">
+              <label class="opcao"><input type="radio" name="perfil" value="dono" required><span>Dono de negócio</span></label>
+              <label class="opcao"><input type="radio" name="perfil" value="agencia"><span>Agência ou gestor</span></label>
+            </div>
+            <p class="erro" id="e-perfil"></p>
+          </fieldset>
+
+          <fieldset class="campo">
+            <legend>Você vende pelo WhatsApp ou direct?</legend>
+            <div class="opcoes">
+              <label class="opcao"><input type="radio" name="vende_whatsapp" value="sim" required><span>Sim</span></label>
+              <label class="opcao"><input type="radio" name="vende_whatsapp" value="nao"><span>Não</span></label>
+            </div>
+            <p class="erro" id="e-vende_whatsapp"></p>
+          </fieldset>
+
+          <fieldset class="campo">
+            <legend>Já investe em anúncios?</legend>
+            <div class="opcoes">
+              <label class="opcao"><input type="radio" name="investe_anuncios" value="sim" required><span>Sim</span></label>
+              <label class="opcao"><input type="radio" name="investe_anuncios" value="nao"><span>Não</span></label>
+            </div>
+            <p class="erro" id="e-investe_anuncios"></p>
+          </fieldset>
+
+          <div class="campo" id="campo-faixa">
+            <label for="f-faixa">Se já investe: quanto, por mês, mais ou menos?</label>
+            <select id="f-faixa" name="faixa_investimento">
+              <option value="">Escolha uma faixa</option>
+              <option value="ate_500">Até R$ 500</option>
+              <option value="500_2000">R$ 500 a R$ 2.000</option>
+              <option value="2000_5000">R$ 2.000 a R$ 5.000</option>
+              <option value="acima_5000">Acima de R$ 5.000</option>
+            </select>
+            <p class="erro" id="e-faixa_investimento"></p>
+          </div>
+
+          <div class="campo">
+            <label for="f-site">Site <span class="opcional">(opcional)</span></label>
+            <input id="f-site" name="site" type="text" inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false" placeholder="seunegocio.com.br" maxlength="200">
+            <p class="erro" id="e-site"></p>
+          </div>
+
+          <!-- antispam: humanos não veem este campo -->
+          <div class="pote" aria-hidden="true">
+            <label for="f-empresa-url">Não preencha</label>
+            <input id="f-empresa-url" name="empresa_url" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <input type="hidden" name="utm_source">
+          <input type="hidden" name="utm_medium">
+          <input type="hidden" name="utm_campaign">
+          <input type="hidden" name="utm_content">
+          <input type="hidden" name="pagina_origem">
+
+          <div class="campo campo-consentimento">
+            <label class="consentimento">
+              <input type="checkbox" name="consentimento" value="sim" required>
+              <span>Autorizo a V2G a usar estes dados para entrar em contato comigo sobre o pré-cadastro, conforme a <a href="/privacidade" target="_blank" rel="noopener">Política de Privacidade</a>.</span>
+            </label>
+            <p class="erro" id="e-consentimento"></p>
+          </div>
+
+          <p class="erro erro-geral" id="e-geral" role="alert"></p>
+          <button type="submit" class="botao botao-lima botao-largo">Enviar pré-cadastro</button>
+        </form>
+
+        <div class="enviado" id="form-enviado" tabindex="-1" hidden>
+          <i class="quadrado quadrado-grande" aria-hidden="true"></i>
+          <p class="enviado-titulo">Recebemos<span class="ponto">.</span></p>
+          <p>Se o seu negócio fizer sentido para esta fase, a gente chama no seu WhatsApp em até 3 dias úteis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="faixa rodape-grade">
+    <img src="/assets/marca/v2g-logo-claro.svg" alt="V2G" width="104" height="31">
+    <ul class="rodape-links">
+      <li><a href="https://v2gmidia.com.br">v2gmidia.com.br</a></li>
+      <li><a href="https://www.instagram.com/v2g.midia/" target="_blank" rel="noopener">@v2g.midia</a></li>
+      <li><a href="/privacidade">Política de Privacidade</a></li>
+    </ul>
+    <p class="rodape-legal">© <span id="ano">2026</span> V2G Agências de Publicidade Ltda · CNPJ 68.105.468/0001-84</p>
   </div>
 </footer>
 
-<script src="assets/v2g.js"></script>
-<script src="assets/xlink.js"></script>
-<script>
-(function () {
-  "use strict";
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  var heroMark = document.querySelector(".hero-mark .mark");
-  if (heroMark) {
-    var lit = V2G.buildMark(heroMark);
-    if (!reduced) {
-      lit.forEach(function (px) { px.style.opacity = "0.12"; px.style.transform = "scale(0.5)"; });
-      lit.forEach(function (px, i) {
-        setTimeout(function () { px.style.opacity = "1"; px.style.transform = "none"; }, 120 + i * 45);
-      });
-    }
-  }
-
-  var reveals = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
-  if (reduced) {
-    reveals.forEach(function (el) { el.classList.add("in"); });
-  } else {
-    var revealInView = function () {
-      var h = window.innerHeight || document.documentElement.clientHeight;
-      for (var i = reveals.length - 1; i >= 0; i--) {
-        var el = reveals[i];
-        if (el.getBoundingClientRect().top < h * 0.9) { el.classList.add("in"); reveals.splice(i, 1); }
-      }
-    };
-    revealInView();
-    window.addEventListener("scroll", revealInView, { passive: true });
-    window.addEventListener("resize", revealInView);
-    setTimeout(function () {
-      document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
-    }, 2600);
-  }
-
-  var faqs = document.querySelectorAll(".faq details");
-  faqs.forEach(function (d) {
-    d.addEventListener("toggle", function () {
-      if (d.open) { faqs.forEach(function (o) { if (o !== d) o.open = false; }); }
-    });
-  });
-})();
-</script>
+<script src="/assets/lp-movimento.js" defer></script>
+<script src="/assets/lp.js" defer></script>
 </body>
 </html>

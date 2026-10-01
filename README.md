@@ -1,69 +1,51 @@
-# V2G — Landing Page (vendas)
+# V2G — Landing Page (pré-cadastro)
 
-Página de vendas pública da V2G: leva o visitante frio até o cadastro.
-Site estático (HTML/CSS/JS), sem build, sem dependências.
+Página pública em v2gmidia.com.br. Objetivo único: captar interessados no
+formulário de pré-cadastro. Site estático (HTML/CSS/JS), sem build, sem
+dependências, mais uma função de servidor da Vercel para o formulário.
 
 ## Rodar localmente
 
-Abra `index.html` no navegador, ou sirva a pasta:
+Precisa só do Node 18+. A gravação é **simulada** (nada vai para o Supabase):
 
 ```bash
-python -m http.server 5173
+node scripts/servidor-local.js --simular
 # http://localhost:5173
 ```
 
-## Deploy na Vercel (estático, zero-config)
+## Deploy na Vercel
 
-1. Suba este repositório no GitHub.
-2. Na Vercel: **Add New → Project** → importe o repositório.
-3. **Framework Preset: Other** · Build Command: *(vazio)* · Output Directory: *(vazio / raiz)*.
-4. Deploy.
+Framework Preset: **Other** · Build Command: *(vazio)* · Output Directory: *(raiz)*.
+A pasta `api/` vira função de servidor automaticamente.
 
-## Links para fora deste site
+Variáveis de ambiente (Settings → Environment Variables), nunca no repositório:
 
-Só duas chaves existem em `window.V2G_URLS` hoje (o repo *Guia* foi
-descontinuado — não existe mais uma terceira chave `guia`/`lp`):
+| Nome | O que é |
+|---|---|
+| `SUPABASE_URL` | URL do projeto Supabase |
+| `SUPABASE_ANON_KEY` | chave **pública** (anon). Só executa `inserir_lead_lp`; não lê nem escreve a tabela |
+| `IP_HASH_SALT` | texto aleatório longo, usado para gerar o `ip_hash` (o IP puro não é guardado) |
 
-- `conteudo` — URL do app (repo *v2gapp* na Vercel). É pra onde levam os
-  botões de auto-cadastro ("comece agora por conta própria", "Entrar").
-- `lead` — link de WhatsApp (ou agendamento) do CTA principal "Análise
-  gratuita". **Hoje ainda é um número placeholder** (`5500000000000`) —
-  precisa ser trocado pelo WhatsApp real antes de qualquer divulgação.
+Antes do primeiro deploy, rode `supabase/leads_lp.sql` no SQL Editor do Supabase.
 
-Edite **`assets/xlink.js`**:
-
-```js
-window.V2G_URLS = {
-  conteudo: "https://SEU-conteudo.vercel.app",
-  lead:     "https://wa.me/55DDNNNNNNNNN?text=..."
-};
-```
-
-Nada mais precisa ser tocado — o resto é reescrito automaticamente em
-todo `<a data-x="conteudo">` e `<a data-lead>` do site (inclusive nas
-páginas legais, que também usam `data-lead` para o WhatsApp de contato).
+`.vercelignore` impede que `docs/`, `supabase/`, `scripts/` e este README sejam publicados.
 
 ## Estrutura
 
 ```
-index.html                A landing (hero → dor → como funciona → preço → garantia → CTA)
-privacidade.html           Política de Privacidade (LGPD + acesso à API do Meta)
-termos.html                 Termos de Uso
-exclusao-de-dados.html      Instruções de exclusão de dados (URL exigida pelo App Review do Meta)
-assets/
-  v2g.css                  Design system (tokens, componentes) — fonte: Archivo via Google Fonts
-  v2g-landing.css          Estilos da landing
-  v2g-legal.css            Estilos das 3 páginas de texto longo acima
-  v2g.js                   Logomark pixelado
-  xlink.js                 << as URLs (app + WhatsApp) moram aqui
+index.html                 A landing (hero → problema → o que faz → como funciona →
+                           para quem → onde estamos → perguntas → formulário → rodapé)
+api/pre-cadastro.js        POST do formulário: honeypot, validação, ip_hash, rpc no Supabase
+api/_lead.js               Regras de validação do lead (não vira rota: começa com "_")
+supabase/leads_lp.sql      Tabela leads_lp + função inserir_lead_lp + permissões
+scripts/servidor-local.js  Servidor de teste local (imita a Vercel)
+assets/lp.css, lp.js       Estilos e scripts da landing (cronômetro + formulário)
+assets/marca/              Logo (PROVISÓRIA, redesenhada em SVG), símbolo e blocos pixelados
+assets/og-v2g.png          Imagem de compartilhamento 1200x630
+assets/fontes/             Plus Jakarta Sans (landing) e Archivo (páginas legais), hospedadas aqui
+
+privacidade.html, termos.html, exclusao-de-dados.html
+                           Páginas legais. Ainda usam v2g.css, v2g-landing.css, v2g-legal.css,
+                           v2g.js e xlink.js. Não mexer sem revisão: as URLs podem estar
+                           cadastradas no app da Meta.
 ```
-
-## Aviso sobre as páginas legais
-
-`privacidade.html`, `termos.html` e `exclusao-de-dados.html` foram
-geradas como **rascunho** para viabilizar a submissão ao App Review do
-Meta. Têm trechos marcados visualmente (fundo amarelo, classe
-`.legal-placeholder`) com suposições que precisam de confirmação —
-domínio de e-mail, prazos de resposta, foro e política de reembolso.
-**Precisam de revisão jurídica antes de ir ao ar em definitivo,
-especialmente as cláusulas de LGPD e a limitação de responsabilidade.**

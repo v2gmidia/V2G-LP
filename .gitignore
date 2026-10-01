@@ -3,3 +3,11 @@ node_modules/
 Thumbs.db
 .vercel
 *.log
+
+# segredos e variáveis de ambiente: nunca no repositório
+.env
+.env.*
+!.env.example
+
+# configurações locais do Claude Code
+.claude/
