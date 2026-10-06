@@ -8,8 +8,8 @@
   'use strict';
 
   /* ---------- 1. cronômetro ---------- */
-  // 09/11/2026 00:00 em Brasília. O Brasil não tem horário de verão desde 2019: -03:00 fixo.
-  var LANCAMENTO = Date.parse('2026-11-09T00:00:00-03:00');
+  // 28/10/2026 00:00 em Brasília. O Brasil não tem horário de verão desde 2019: -03:00 fixo.
+  var LANCAMENTO = Date.parse('2026-10-28T00:00:00-03:00');
   var crono = document.getElementById('cronometro');
 
   if (crono) {
@@ -45,21 +45,17 @@
       }
     };
 
+    // no lançamento o relógio para em 00 00 00 00 (não vira texto)
     var chegou = function () {
       clearInterval(timer);
-      crono.querySelector('.cronometro-relogio').remove();
-      crono.querySelector('.cronometro-data').remove();
-      var p = document.createElement('p');
-      p.className = 'cronometro-chegou';
-      p.textContent = 'O app V2G chegou.';
-      crono.appendChild(p);
+      ['dias', 'horas', 'minutos', 'segundos'].forEach(function (k) { escreve(campos[k], '00'); });
     };
 
     var atualiza = function () {
       var falta = LANCAMENTO - Date.now();
       if (falta <= 0) { chegou(); return; }
       var s = Math.floor(falta / 1000);
-      escreve(campos.dias, String(Math.floor(s / 86400)));
+      escreve(campos.dias, dois(Math.floor(s / 86400)));
       escreve(campos.horas, dois(Math.floor(s % 86400 / 3600)));
       escreve(campos.minutos, dois(Math.floor(s % 3600 / 60)));
       escreve(campos.segundos, dois(s % 60));
@@ -67,6 +63,70 @@
 
     atualiza();
     if (Date.now() < LANCAMENTO) timer = setInterval(atualiza, 1000);
+    else chegou();
+
+    // ao voltar para a aba, redesenha parado: nenhuma virada fica pela metade
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) return;
+      Object.keys(campos).forEach(function (k) {
+        var v = campos[k].getAttribute('data-v') || '';
+        campos[k].removeAttribute('data-v');
+        campos[k].innerHTML = '';
+        if (v) { var guarda = semMovimento; semMovimento = { matches: true }; escreve(campos[k], v); semMovimento = guarda; }
+      });
+    });
+  }
+
+  /* ---------- interações (não são movimento: valem também com "reduzir movimento") ---------- */
+
+  // "Uma pessoa. Muitas contas.": mouse ou toque num quadrado acende e diz qual conta é
+  var grade = document.querySelector('.atencao-grade');
+  var viva = document.querySelector('.atencao-viva');
+  if (grade && viva) {
+    var quadros = Array.prototype.slice.call(grade.children);
+    var textoInicial = viva.textContent;
+    var atual = null;
+    var mostra = function (q) {
+      if (atual === q) return;
+      if (atual) atual.classList.remove('foco');
+      atual = q;
+      if (!q) { viva.textContent = textoInicial; return; }
+      q.classList.add('foco');
+      viva.textContent = q.classList.contains('sua') ? 'Essa é a sua' : 'Conta ' + (quadros.indexOf(q) + 1) + ' de ' + quadros.length;
+    };
+    var deEvento = function (e) {
+      var el = document.elementFromPoint(e.clientX, e.clientY);
+      return el && el.parentNode === grade ? el : null;
+    };
+    grade.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') mostra(deEvento(e)); });
+    grade.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') mostra(null); });
+    grade.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') mostra(deEvento(e)); });
+    // arrastar o dedo pela grade vai trocando a conta
+    grade.addEventListener('touchmove', function (e) {
+      var t = e.touches[0]; if (!t) return;
+      var el = document.elementFromPoint(t.clientX, t.clientY);
+      if (el && el.parentNode === grade) mostra(el);
+    }, { passive: true });
+  }
+
+  // barra fixa do celular: some quando o formulário está na tela.
+  // botão do WhatsApp: some quando o formulário OU o rodapé estão na tela.
+  var barra = document.getElementById('barra-fixa');
+  var botaoWhats = document.querySelector('.whats-flutua'); // nome próprio: "whats" já é o campo do formulário
+  var secaoForm = document.getElementById('pre-cadastro');
+  var rodape = document.querySelector('.rodape');
+  if ('IntersectionObserver' in window && secaoForm) {
+    var visiveis = {};
+    var aplica = function () {
+      if (barra) barra.classList.toggle('escondida', !!visiveis.form);
+      if (botaoWhats) botaoWhats.classList.toggle('escondido', !!(visiveis.form || visiveis.rodape));
+    };
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { visiveis[e.target === secaoForm ? 'form' : 'rodape'] = e.isIntersecting; });
+      aplica();
+    }, { threshold: 0.02 });
+    io.observe(secaoForm);
+    if (rodape) io.observe(rodape);
   }
 
   var ano = document.getElementById('ano');

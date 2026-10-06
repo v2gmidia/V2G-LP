@@ -64,9 +64,10 @@ function responde(req, res, status, corpo) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
   res.end('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<title>V2G — Pré-cadastro</title><body style="font-family:system-ui,sans-serif;max-width:560px;margin:48px auto;padding:0 20px;color:#001034">' +
+    '<title>V2G — Pré-cadastro</title><link rel="stylesheet" href="/assets/lp.v4.css">' +
+    '<body style="max-width:560px;margin:48px auto;padding:0 20px 40px;color:#051225">' +
     '<p style="font-size:1.25rem;font-weight:700">' + msg + '</p>' + lista +
-    '<p><a href="/#pre-cadastro" style="color:#0048F8">Voltar</a></p></body></html>');
+    '<p><a href="/#pre-cadastro" style="color:#0B40DA">Voltar</a></p></body></html>');
 }
 
 async function leCorpo(req) {

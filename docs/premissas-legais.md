@@ -102,7 +102,7 @@ O que foi medido, baixando as páginas de `v2gmidia.com.br`:
 
 | marcador | no ar |
 |---|---|
-| WhatsApp `+55 21 93618-2176` | sim |
+| WhatsApp `+55 21 99968-9689` | sim |
 | WhatsApp antigo `98035-1531` | não |
 | Anthropic, Pagar.me, Rua Visconde, `sa-east-1` | sim |
 | `lp-nav`, Google Fonts | não |

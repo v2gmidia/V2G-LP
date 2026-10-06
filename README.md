@@ -34,21 +34,29 @@ Antes do primeiro deploy, rode `supabase/leads_lp.sql` no SQL Editor do Supabase
 
 ```
 index.html                 A landing (hero → problema → o que faz → como funciona →
-                           para quem → onde estamos → perguntas → formulário → rodapé)
+                           para quem → onde estamos → formulário → perguntas → rodapé)
 api/pre-cadastro.js        POST do formulário: honeypot, validação, ip_hash, rpc no Supabase
 api/_lead.js               Regras de validação do lead (não vira rota: começa com "_")
 supabase/leads_lp.sql      Tabela leads_lp + função inserir_lead_lp + permissões
 scripts/servidor-local.js  Servidor de teste local (imita a Vercel)
-assets/lp.css, lp.js       Estilos e scripts da landing (cronômetro + formulário)
-assets/marca/              Logo (PROVISÓRIA, redesenhada em SVG), símbolo e blocos pixelados
+assets/lp.v4.css           Estilos da landing (identidade v2: cobalto, marinho, lima, Archivo)
+assets/legal.v4.css        Estilos das páginas legais (carrega depois de lp.v4.css)
+assets/lp.v4.js            Cronômetro, formulário e interações que não são movimento
+assets/lp-movimento.v4.js  Animações (só sem "reduzir movimento")
+assets/marca/simbolo.svg   Arquivo-mestre do símbolo (currentColor). Use <use href="...#v2g">
+assets/marca/textura.svg   Grade de pontos que some em degradê
+assets/marca/icone-1080.png Ícone para Instagram e WhatsApp (marinho + lima)
 assets/og-v2g.png          Imagem de compartilhamento 1200x630
-assets/fontes/             Plus Jakarta Sans (landing) e Archivo (páginas legais), hospedadas aqui
+assets/fontes/             Archivo variável (pesos 100–900, larguras 62–125) + licença OFL
 404.html                   Página de erro (a Vercel serve sozinha)
 robots.txt, sitemap.xml    Para buscadores
-vercel.json                cleanUrls + cabeçalhos X-Frame-Options e X-Content-Type-Options
+vercel.json                cleanUrls, cabeçalhos de segurança e cache
 
 privacidade.html, termos.html, exclusao-de-dados.html
-                           Páginas legais. Ainda usam v2g.css, v2g-landing.css, v2g-legal.css
-                           e v2g.js. Não mexer sem revisão: as URLs podem estar cadastradas
-                           no app da Meta.
+                           Páginas legais. Não mexer no texto sem revisão: as URLs podem
+                           estar cadastradas no app da Meta.
 ```
+
+**Cache:** CSS e JS levam a versão no nome (`lp.v4.css`). Ao mudar um deles, suba o número
+(`lp.v5.css`) e troque a referência no HTML: esses arquivos ficam em cache por um ano.
+O HTML nunca fica em cache.

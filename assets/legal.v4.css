@@ -1,0 +1,59 @@
+/* ============================================================
+   V2G — páginas legais · v4
+   Carrega depois de lp.v4.css (fonte, cores, assinatura e rodapé).
+   Sóbria: fundo branco, texto quase-preto, títulos em marinho,
+   sem textura, sem lima, sem animação. Largura de leitura ~70 caracteres.
+   ============================================================ */
+
+body.legal { background: #fff; padding-bottom: 0; }
+.legal .topo { background: rgba(255, 255, 255, .94); }
+.voltar {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-stretch: 80%; font-weight: 700; font-size: .92rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--marinho); text-decoration: none; padding: 10px 4px;
+}
+.voltar:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.legal-hero, .legal-body { --leitura: 70ch; }
+.legal-hero .lp-container, .legal-body .lp-container { max-width: calc(var(--leitura) + 2 * var(--lateral)); margin: 0 auto; padding: 0 var(--lateral); }
+.legal-hero { padding: 36px 0 22px; border-bottom: 1px solid var(--linha); }
+.legal-eyebrow {
+  display: block; margin-bottom: 10px;
+  font-stretch: 75%; font-weight: 700; font-size: .82rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cobalto);
+}
+.legal-hero h1 { font-weight: 800; font-size: clamp(1.7rem, 6vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--marinho); }
+.legal-updated { margin-top: 10px; font-size: .92rem; color: var(--texto-suave); }
+
+.sumario { margin: 26px 0 8px; padding: 16px 18px; background: var(--off); border-radius: 12px; }
+.sumario p {
+  font-stretch: 75%; font-weight: 700; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--marinho); margin-bottom: 6px;
+}
+.legal-body .sumario ol { list-style: none; padding: 0; margin: 0; columns: 1; } /* os títulos já trazem o número */
+.sumario li { margin: 3px 0; break-inside: avoid; }
+.sumario a { color: var(--cobalto); text-decoration: none; font-size: .95rem; }
+.sumario a:hover { text-decoration: underline; text-underline-offset: 3px; }
+@media (min-width: 720px) { .legal-body .sumario ol { columns: 2; column-gap: 28px; } }
+
+.legal-body { padding: 8px 0 56px; color: var(--texto); font-size: 1.02rem; line-height: 1.65; }
+.legal-body h2 {
+  margin: 34px 0 10px; font-weight: 800; font-size: 1.3rem; line-height: 1.25; letter-spacing: -0.01em; color: var(--marinho);
+  scroll-margin-top: calc(var(--topo) + 16px);
+}
+.legal-body h3 { margin: 22px 0 8px; font-weight: 700; font-size: 1.08rem; color: var(--marinho); }
+.legal-body p { margin: 0 0 12px; }
+.legal-body ul, .legal-body ol { margin: 0 0 14px; padding-left: 1.3em; list-style: disc; }
+.legal-body ol, .legal-body .steps-list { list-style: decimal; }
+.legal-body li { margin: 4px 0; }
+.legal-body strong { font-weight: 700; color: var(--marinho); }
+.legal-body a { color: var(--cobalto); text-underline-offset: 3px; word-break: break-word; }
+
+.legal-card { margin: 16px 0; padding: 16px 18px; border: 1px solid var(--linha); border-left: 4px solid var(--marinho); border-radius: 10px; background: #fff; }
+.legal-card p:last-child { margin-bottom: 0; }
+
+/* trecho que ainda depende de confirmação: marcado, mas discreto */
+.legal-placeholder { background: #FFF1C2; color: var(--preto); padding: 0 4px; border-radius: 3px; }
+
+.legal-tabela { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: .94rem; display: block; overflow-x: auto; }
+.legal-tabela th, .legal-tabela td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--linha); }
+.legal-tabela th { font-weight: 700; color: var(--marinho); background: var(--off); }
+@media (min-width: 720px) { .legal-tabela { display: table; } }
