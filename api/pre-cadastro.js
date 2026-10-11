@@ -20,7 +20,9 @@ const crypto = require('crypto');
 const { validaLead } = require('./_lead');
 
 const MSG_RECEBIDO_HTML =
-  'Recebemos. Se o seu negócio fizer sentido para esta fase, a gente chama no seu WhatsApp em até 3 dias úteis.';
+  'Recebemos seu interesse. Isso não cria pedido, pagamento ou acesso. A equipe confere o CNPJ e os requisitos antes de orientar a compra.';
+const CONTATO_URL = 'https://wa.me/5521999689689?text=' +
+  encodeURIComponent('Olá! Enviei meu pré-cadastro pelo site da V2G e gostaria de conversar com a equipe.');
 
 // Só para LEADS_SIMULAR=1: memória do processo local.
 const simulados = [];
@@ -58,16 +60,20 @@ function responde(req, res, status, corpo) {
     return;
   }
   // Envio sem JavaScript: devolve uma página mínima.
-  const msg = corpo.ok ? MSG_RECEBIDO_HTML : (corpo.erro || 'Confira os campos e tente de novo.');
+  const msg = corpo.simulado ? 'Prévia local: nenhum contato foi salvo.' :
+    corpo.contato_url ? MSG_RECEBIDO_HTML :
+    corpo.ok ? 'Recebemos seu envio.' : (corpo.erro || 'Confira os campos e tente de novo.');
   const lista = corpo.campos ? '<ul>' + Object.values(corpo.campos).map((m) => '<li>' + m + '</li>').join('') + '</ul>' : '';
+  const contato = corpo.contato_url ? '<p><a class="button button-blue" href="' + CONTATO_URL + '" target="_blank" rel="noopener">' +
+    (corpo.simulado ? 'Ver link do WhatsApp' : 'Continuar no WhatsApp') + '</a></p>' : '';
   res.statusCode = status;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
   res.end('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<title>V2G — Pré-cadastro</title><link rel="stylesheet" href="/assets/lp.v4.css">' +
-    '<body style="max-width:560px;margin:48px auto;padding:0 20px 40px;color:#051225">' +
-    '<p style="font-size:1.25rem;font-weight:700">' + msg + '</p>' + lista +
-    '<p><a href="/#pre-cadastro" style="color:#0B40DA">Voltar</a></p></body></html>');
+    '<title>V2G — Contato</title><link rel="stylesheet" href="/assets/lp.v5.css">' +
+    '<body style="max-width:640px;margin:64px auto;padding:0 24px 48px;color:#051225;background:#ECF5F2">' +
+    '<main><p style="font-size:1.5rem;font-weight:500">' + msg + '</p>' + lista + contato +
+    '<p><a href="/#pre-cadastro" style="color:#0B40DA">Voltar ao site</a></p></main></body></html>');
 }
 
 async function leCorpo(req) {
@@ -107,7 +113,7 @@ function simulaGravacao(lead, ipHash) {
   const recentes = simulados.filter((s) => s.ip_hash === ipHash && s.em > umaHoraAtras).length;
   if (recentes >= LIMITE_POR_HORA) return { ok: false, motivo: 'limite' };
   simulados.push({ ip_hash: ipHash, em: Date.now() });
-  console.log('[SIMULADO] lead que seria gravado:', JSON.stringify({ ...lead, ip_hash: ipHash.slice(0, 12) + '…' }));
+  console.log('[SIMULADO] contato validado; nenhum dado foi gravado no Supabase.');
   return { ok: true };
 }
 
@@ -149,7 +155,11 @@ module.exports = async function handler(req, res) {
     return responde(req, res, 502, { ok: false, erro: 'Não conseguimos enviar agora. Tente de novo em alguns minutos.' });
   }
 
-  if (resultado && resultado.ok) return responde(req, res, 200, { ok: true });
+  if (resultado && resultado.ok === true) return responde(req, res, 200, {
+    ok: true,
+    contato_url: CONTATO_URL,
+    ...(process.env.LEADS_SIMULAR === '1' ? { simulado: true } : {})
+  });
   if (resultado && resultado.motivo === 'limite') {
     return responde(req, res, 429, { ok: false, erro: 'Recebemos vários envios daqui na última hora. Tente de novo mais tarde.' });
   }

@@ -22,6 +22,21 @@ const texto = (v, max) => (typeof v === 'string' ? v : v == null ? '' : String(v
 
 const simNao = (v) => (v === 'sim' || v === true ? true : v === 'nao' || v === false ? false : null);
 
+function cnpjTemDigitosValidos(valor) {
+  const cnpj = texto(valor, 24).replace(/\D/g, '');
+  if (!/^\d{14}$/.test(cnpj) || /^(\d)\1{13}$/.test(cnpj)) return false;
+  const digitos = [...cnpj].map(Number);
+  for (const tamanho of [12, 13]) {
+    const pesos = tamanho === 12
+      ? [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+      : [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const soma = pesos.reduce((total, peso, indice) => total + digitos[indice] * peso, 0);
+    const resto = soma % 11;
+    if (digitos[tamanho] !== (resto < 2 ? 0 : 11 - resto)) return false;
+  }
+  return true;
+}
+
 function limpaInstagram(v) {
   return texto(v, 120)
     .replace(/^https?:\/\/(www\.)?instagram\.com\//i, '')
@@ -53,6 +68,11 @@ function validaLead(corpo) {
 
   const negocio = texto(b.negocio, 120);
   if (negocio.length < 2) campos.negocio = 'Escreva o nome do negócio.';
+
+  // A LP só consegue conferir formato e dígitos. Situação cadastral ativa
+  // exige uma fonte oficial e continua sendo conferida antes da compra.
+  const cnpj = texto(b.cnpj, 24).replace(/\D/g, '');
+  if (!cnpjTemDigitosValidos(cnpj)) campos.cnpj = 'Confira o CNPJ da empresa.';
 
   const nicho = texto(b.nicho, 40);
   if (!NICHOS.includes(nicho)) campos.nicho = 'Escolha o ramo do negócio.';

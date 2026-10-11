@@ -1,0 +1,102 @@
+/* A LP v5 continua como base. Esta camada acrescenta a contratação assistida. */
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 22px; }
+.hero-actions > .text-link { color: var(--ice); font-size: 13px; min-height: 44px; }
+.plan-section { background: var(--paper); color: var(--ink); }
+.plan-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: 60px clamp(45px, 7vw, 100px); }
+.plan-copy h2 { max-width: 13ch; }
+.plan-copy h2 em { color: var(--blue); }
+.plan-copy > p { max-width: 45ch; font-size: 16px; color: var(--muted); margin-top: 28px; }
+.plan-includes { list-style: none; margin: 30px 0 0; padding: 0; }
+.plan-includes li { position: relative; padding: 14px 0 14px 22px; font-size: 15px; line-height: 1.6; }
+.plan-includes li::before { content: ''; position: absolute; top: 23px; left: 0; width: 5px; height: 5px; background: var(--blue); }
+.plan-copy > .plan-fit { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 22px; font-size: 13px; }
+.plan-offer { align-self: start; border-top: 1px solid var(--ink); padding-top: 25px; }
+.plan-offer h3 { font-size: 22px; font-weight: 450; letter-spacing: -.025em; }
+.plan-price { font-size: clamp(64px, 6vw, 84px); line-height: 1; letter-spacing: -.04em; font-weight: 400; margin: 34px 0 7px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.plan-price > span { font-size: 20px; letter-spacing: -.015em; }
+.plan-price > span:last-child { font-size: 18px; margin-left: 5px; color: var(--muted); }
+.plan-unit { font-size: 15px; color: var(--muted); }
+.plan-terms { margin: 30px 0; font-size: 13px; }
+.plan-terms > div { display: flex; justify-content: space-between; gap: 20px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.plan-terms dt { color: var(--muted); }
+.plan-terms dd { text-align: right; }
+.plan-annual { margin: -8px 0 28px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.plan-annual span, .plan-annual p { display: block; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.plan-annual strong { display: block; margin: 5px 0; font-size: 18px; font-weight: 500; letter-spacing: -.02em; }
+.campo-ajuda { margin: 7px 0 0; color: #e0e8ff; font-size: 11px; line-height: 1.55; }
+.plan-offer > .button { width: 100%; justify-content: space-between; }
+.plan-assisted { margin-top: 18px; font-size: 12px; line-height: 1.65; color: var(--muted); max-width: 49ch; }
+.plan-next { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 35px; }
+.plan-next h3 { font-weight: 450; font-size: 26px; letter-spacing: -.025em; }
+.plan-next ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; list-style: none; counter-reset: entrada; margin: 28px 0; padding: 0; }
+.plan-next li { position: relative; padding-left: 30px; counter-increment: entrada; }
+.plan-next li::before { content: counter(entrada); position: absolute; top: 0; left: 0; font-size: 14px; line-height: 1.6; color: var(--blue); font-variant-numeric: tabular-nums; }
+.plan-next strong { display: block; font-size: 15px; font-weight: 550; margin-bottom: 9px; }
+.plan-next li span { display: block; font-size: 13px; color: var(--muted); line-height: 1.65; }
+.plan-next > p { font-size: 13px; color: var(--muted); margin-top: 30px; }
+.plan-next a { color: var(--blue); display: inline-flex; align-items: center; gap: 6px; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
+.plan-next .arrow { width: 16px; height: 16px; }
+.form-section-heading { grid-column: 1 / -1; margin-top: 16px; }
+.form-section-heading h4 { font-size: 18px; letter-spacing: -.015em; font-weight: 450; margin: 0; }
+.form-section-heading p { font-size: 12px; color: #e0e8ff; margin-top: 7px; line-height: 1.6; }
+.form-section-business { border-top: 1px solid #7698ed; padding-top: 25px; margin-top: 9px; }
+#form-pre-cadastro .campo:has(#f-nome),
+#form-pre-cadastro .campo:has(#f-negocio) { grid-column: 1 / -1; }
+#form-pre-cadastro .campo:has(#f-whatsapp),
+#form-pre-cadastro .campo:has(#f-email) { grid-column: auto; }
+.registration .button-paper { background: var(--paper); color: var(--navy); margin-top: 26px; }
+.registration .button-paper:hover { background: #fff; }
+.enviado #enviado-mensagem { font-size: 16px; line-height: 1.7; color: #e0e8ff; max-width: 40ch; }
+.enviado .enviado-ajuda { margin-top: 23px; font-size: 12px; line-height: 1.6; color: #e0e8ff; }
+.site-header a:focus-visible, .plan-section a:focus-visible, .registration a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.site-header .nav-conversao { display: inline-flex; align-items: center; min-height: 44px; }
+
+@media (max-width: 960px) {
+  .plan-layout { gap: 45px; }
+  .plan-price { font-size: 64px; }
+  .plan-price > span, .plan-price > span:last-child { font-size: 16px; }
+  .plan-terms > div { display: block; }
+  .plan-terms dd { text-align: left; margin-top: 4px; }
+  .plan-next ol { gap: 22px; }
+  #form-pre-cadastro .campo:has(#f-whatsapp),
+  #form-pre-cadastro .campo:has(#f-email) { grid-column: 1 / -1; }
+}
+
+@media (max-width: 760px) {
+  .header-inner { height: auto; min-height: 110px; flex-wrap: wrap; gap: 12px; padding-top: 17px; padding-bottom: 12px; }
+  .site-header nav { width: 100%; justify-content: space-between; gap: 14px; }
+  .site-header .nav-conversao { display: inline-flex; font-size: 12px; }
+  .site-header .button { min-height: 44px; gap: 12px; }
+  .hero-actions { gap: 8px 24px; }
+  .hero-actions > .text-link { font-size: 14px; }
+  .plan-layout { grid-template-columns: 1fr; gap: 36px; }
+  .plan-copy h2 { max-width: 14ch; }
+  .plan-copy > p { font-size: 15px; margin-top: 24px; }
+  .plan-includes { margin-top: 22px; }
+  .plan-offer { padding-top: 24px; }
+  .plan-price { margin-top: 25px; font-size: 74px; }
+  .plan-terms > div { display: flex; }
+  .plan-terms dd { text-align: right; margin-top: 0; }
+  .plan-annual { margin-bottom: 25px; }
+  .plan-next { padding-top: 28px; }
+  .plan-next h3 { font-size: 24px; }
+  .plan-next ol { grid-template-columns: 1fr; gap: 26px; }
+  .plan-next strong { margin-bottom: 5px; }
+  .plan-next > p { margin-top: 12px; }
+  .plan-assisted { font-size: 13px; }
+  .registration h2 { max-width: 12ch; }
+  .form-section-heading { margin-top: 12px; }
+  .form-section-heading p { font-size: 13px; }
+  .form-section-business { margin-top: 8px; }
+  .enviado { min-height: 0; padding: 30px 0; }
+  .enviado .button { width: 100%; justify-content: space-between; font-size: 14px; }
+  .barra-fixa > span { font-size: 10px; max-width: 13ch; }
+}
+
+@media (max-width: 370px) {
+  .site-header nav { gap: 8px; }
+  .site-header .nav-conversao { font-size: 11px; }
+  .site-header .button { padding-inline: 10px; gap: 5px; }
+  .plan-price { font-size: 66px; }
+  .plan-terms { font-size: 12px; }
+}

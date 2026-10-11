@@ -63,6 +63,10 @@ http.createServer(async (req, res) => {
       return fs.createReadStream(path.join(RAIZ, '404.html')).pipe(res);
     }
     res.setHeader('Content-Type', TIPOS[path.extname(arquivo)] || 'application/octet-stream');
+    if (arquivo === path.join(RAIZ, 'index.html') && process.env.LEADS_SIMULAR === '1') {
+      conteudo = conteudo.toString('utf8').replace('<body', '<body data-previa-local="true"');
+      conteudo = conteudo.replace(/(<body[^>]*>)/, '$1<div role="status" style="position:relative;z-index:100;background:#EAFF64;color:#051225;padding:8px 16px;text-align:center;font:500 13px Archivo,sans-serif">Prévia local · os contatos enviados aqui são simulados.</div>');
+    }
     res.end(conteudo);
   });
 }).listen(PORTA, () => {
