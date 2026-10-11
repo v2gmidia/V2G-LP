@@ -16,13 +16,18 @@ for (const [, file] of html.matchAll(/(?:src|href)="(\/assets\/[^"#]+)(?:#[^"]*)
   assert.ok(fs.existsSync(path.join(root, file)), 'Asset ausente: ' + file);
 }
 assert.ok(!html.includes('id="cronometro"'), 'Não anunciar data de lançamento nesta jornada.');
+const hero = html.match(/<section class="hero wrap"[\s\S]*?<\/section>/)?.[0];
+const barra = html.match(/<div class="barra-fixa"[^>]*>[\s\S]*?<\/div>/)?.[0];
+assert.ok(hero && !/R\$\s*500|6 meses/.test(hero), 'Preço e prazo não devem aparecer na hero.');
+assert.ok(barra && !/R\$\s*500|6 meses/.test(barra), 'Preço e prazo não devem aparecer na barra fixa.');
 assert.match(html, /class="plan-price"><span>R\$<\/span> 500<span>\/mês<\/span>/);
-assert.match(html, /class="plan-unit">por conta de anúncios/);
+assert.match(html, /class="plan-unit">por conta de anúncios, com pagamento mensal/);
 assert.match(html, /Permanência mínima<\/dt><dd>6 meses/);
 assert.match(html, /Verba de mídia<\/dt><dd>Separada da mensalidade/);
-assert.match(html, /Anual à vista<\/span><strong>R\$ 5\.280 por conta<\/strong>/);
-assert.match(html, /12% de desconto: R\$ 720 a menos que doze mensalidades/);
-assert.match(html, /Enviar interesse não cria pedido, cobrança ou acesso/);
+assert.match(html, /pagar 12 meses à vista<\/span><strong>R\$ 5\.280 no total, por conta<\/strong>/);
+assert.match(html, /R\$ 720 a menos \(12%\) em relação a 12 mensalidades de R\$ 500/);
+assert.match(html, /O envio não cria pedido, cobrança ou acesso/);
+assert.match(html, /Qual é a diferença entre o mínimo de 6 meses e o anual à vista/);
 assert.match(html, /A situação cadastral ativa é validada com a equipe antes de abrir a compra/);
 assert.ok(!/href="https?:\/\/[^\"]+\/contratar/.test(html), 'A LP não pode apontar para checkout público inexistente.');
 assert.ok(!/href="https?:\/\/wa\.me\//.test(html), 'WhatsApp comercial não pode contornar a captura.');

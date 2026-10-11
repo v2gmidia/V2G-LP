@@ -12,7 +12,7 @@
 .plan-copy > .plan-fit { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 22px; font-size: 13px; }
 .plan-offer { align-self: start; border-top: 1px solid var(--ink); padding-top: 25px; }
 .plan-offer h3 { font-size: 22px; font-weight: 450; letter-spacing: -.025em; }
-.plan-price { font-size: clamp(64px, 6vw, 84px); line-height: 1; letter-spacing: -.04em; font-weight: 400; margin: 34px 0 7px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.plan-price { font-size: clamp(60px, 5.5vw, 76px); line-height: 1; letter-spacing: -.04em; font-weight: 400; margin: 29px 0 7px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .plan-price > span { font-size: 20px; letter-spacing: -.015em; }
 .plan-price > span:last-child { font-size: 18px; margin-left: 5px; color: var(--muted); }
 .plan-unit { font-size: 15px; color: var(--muted); }
@@ -20,9 +20,10 @@
 .plan-terms > div { display: flex; justify-content: space-between; gap: 20px; padding: 13px 0; border-bottom: 1px solid var(--line); }
 .plan-terms dt { color: var(--muted); }
 .plan-terms dd { text-align: right; }
-.plan-annual { margin: -8px 0 28px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.plan-annual span, .plan-annual p { display: block; color: var(--muted); font-size: 12px; line-height: 1.55; }
-.plan-annual strong { display: block; margin: 5px 0; font-size: 18px; font-weight: 500; letter-spacing: -.02em; }
+.plan-annual { margin: -8px 0 28px; padding: 21px 0 22px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.plan-annual span { display: block; color: var(--blue); font-size: 13px; line-height: 1.55; }
+.plan-annual p { color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 42ch; }
+.plan-annual strong { display: block; margin: 7px 0; font-size: 21px; font-weight: 500; letter-spacing: -.02em; }
 .campo-ajuda { margin: 7px 0 0; color: #e0e8ff; font-size: 11px; line-height: 1.55; }
 .plan-offer > .button { width: 100%; justify-content: space-between; }
 .plan-assisted { margin-top: 18px; font-size: 12px; line-height: 1.65; color: var(--muted); max-width: 49ch; }
@@ -53,7 +54,7 @@
 
 @media (max-width: 960px) {
   .plan-layout { gap: 45px; }
-  .plan-price { font-size: 64px; }
+  .plan-price { font-size: 62px; }
   .plan-price > span, .plan-price > span:last-child { font-size: 16px; }
   .plan-terms > div { display: block; }
   .plan-terms dd { text-align: left; margin-top: 4px; }
@@ -74,7 +75,7 @@
   .plan-copy > p { font-size: 15px; margin-top: 24px; }
   .plan-includes { margin-top: 22px; }
   .plan-offer { padding-top: 24px; }
-  .plan-price { margin-top: 25px; font-size: 74px; }
+  .plan-price { margin-top: 25px; font-size: 70px; }
   .plan-terms > div { display: flex; }
   .plan-terms dd { text-align: right; margin-top: 0; }
   .plan-annual { margin-bottom: 25px; }
@@ -97,6 +98,6 @@
   .site-header nav { gap: 8px; }
   .site-header .nav-conversao { font-size: 11px; }
   .site-header .button { padding-inline: 10px; gap: 5px; }
-  .plan-price { font-size: 66px; }
+  .plan-price { font-size: 62px; }
   .plan-terms { font-size: 12px; }
 }
