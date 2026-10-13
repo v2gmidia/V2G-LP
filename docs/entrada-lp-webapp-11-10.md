@@ -61,10 +61,15 @@ de clique da pessoa.
 ## Dados preservados e limites atuais
 
 O schema/RPC `inserir_lead_lp` vigente armazena origem, UTMs e consentimento.
-Ele **não possui coluna nem parâmetro para CNPJ**. Por isso, esta alteração
-valida o CNPJ antes de aceitar o interesse, mas não o persiste na tabela
-`leads_lp`. Alterar isso exige migration e mudança da RPC no banco
-compartilhado, que ficou fora deste bloco.
+A migration de 12/10 adicionou a coluna CNPJ e uma nova assinatura da RPC,
+mas a LP publicada ainda usa a assinatura antiga. Portanto, o CNPJ informado
+na LP ainda não é persistido até a publicação e ativação da integração nova.
+
+### Integração do CNPJ, ainda não publicada na LP (12/10)
+
+`supabase/leads_lp_cnpj_20261012.sql` foi aplicada somente no projeto V2G-SITE em 12/10, após autorização específica de Victor. A primeira tentativa falhou por um tipo `text` excedente na declaração de permissão e foi integralmente revertida. Corrigida a assinatura, a migration passou e consta no ledger como `20261013023519_leads_lp_cnpj_20261012`. A verificação confirmou coluna CNPJ nullable para preservar leads anteriores, constraint de formato, duas assinaturas da RPC (19 argumentos antiga e 20 nova), `SECURITY DEFINER`, `search_path` vazio e execução concedida apenas a `anon`. Nenhum lead teve CNPJ preenchido por esta migration. A LP local normaliza o CNPJ, mas só envia `p_cnpj` quando `LEADS_CNPJ_RPC_ENABLED=1`. A flag continua desligada; a LP publicada não foi alterada neste bloco.
+
+Próxima ordem segura: publicar a LP nova ainda com a flag desligada; ligar a flag na Vercel e publicar novamente; enviar um único lead fictício e comprovar o CNPJ persistido. Depois de confirmar que não há instâncias antigas, avaliar separadamente `supabase/leads_lp_cnpj_finalizar_20261012.sql` para remover a assinatura antiga da RPC. O teste positivo anterior à migration continua sem CNPJ recuperável no registro; não preencher retroativamente por inferência.
 
 O navegador bloqueia novo clique enquanto há um envio em andamento. A RPC
 limita cinco envios por IP em uma hora. Não há deduplicação durável por e-mail

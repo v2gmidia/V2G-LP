@@ -112,6 +112,7 @@ function validaLead(corpo) {
       whatsapp,
       email,
       negocio,
+      cnpj,
       nicho,
       nicho_outro: nichoOutro || null,
       instagram,

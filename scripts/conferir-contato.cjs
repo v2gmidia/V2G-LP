@@ -22,7 +22,7 @@ global.fetch = async (url, options) => {
   assert.equal(url, 'https://persistencia.exemplo.invalid/rest/v1/rpc/inserir_lead_lp');
   const payload = JSON.parse(options.body);
   assert.equal(payload.p_email, lead.email);
-  assert.equal(payload.p_cnpj, undefined); // schema/RPC atual não guarda CNPJ da LP
+  assert.equal(payload.p_cnpj, process.env.LEADS_CNPJ_RPC_ENABLED === '1' ? lead.cnpj : undefined);
   assert.equal(payload.p_consentimento, undefined); // contrato usa texto + data no servidor
   assert.equal(payload.p_ip_hash.length, 64);
   if (rejeitarRede) throw new Error('rede fictícia indisponível');
@@ -48,6 +48,11 @@ async function enviar({ body = lead, accept = 'application/json', method = 'POST
   assert.equal(r.headers['Cache-Control'], 'no-store');
   assert.ok(!r.raw.includes(lead.email));
   assert.ok(!r.raw.includes(lead.whatsapp));
+
+  process.env.LEADS_CNPJ_RPC_ENABLED = '1';
+  r = await enviar();
+  assert.equal(r.status, 200);
+  process.env.LEADS_CNPJ_RPC_ENABLED = '0';
 
   r = await enviar({ accept: 'text/html' });
   assert.match(r.raw, /Continuar no WhatsApp/);

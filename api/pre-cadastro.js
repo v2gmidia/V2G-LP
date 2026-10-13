@@ -90,7 +90,11 @@ async function gravaNoSupabase(lead, ipHash) {
   if (!url || !anon) throw new Error('SUPABASE_URL ou SUPABASE_ANON_KEY ausente');
 
   const params = { p_ip_hash: ipHash };
-  Object.keys(lead).forEach((k) => { params['p_' + k] = lead[k]; });
+  Object.keys(lead).forEach((k) => {
+    // Só envie o novo argumento depois da migration da RPC no V2G-SITE.
+    // Com a flag desligada, a LP publicada mantém o contrato antigo.
+    if (k !== 'cnpj' || process.env.LEADS_CNPJ_RPC_ENABLED === '1') params['p_' + k] = lead[k];
+  });
 
   const r = await fetch(url.replace(/\/+$/, '') + '/rest/v1/rpc/inserir_lead_lp', {
     method: 'POST',
