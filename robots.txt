@@ -1,4 +1,31 @@
 User-agent: *
 Allow: /
 
+# Busca e consulta assistida por IA: permitidas.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Rastreadores usados para treinamento: bloqueados.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+# Google Search segue permitido; esta regra também limita o grounding no Gemini.
+User-agent: Google-Extended
+Disallow: /
+
 Sitemap: https://www.v2gmidia.com.br/sitemap.xml

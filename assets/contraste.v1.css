@@ -1,0 +1,23 @@
+/* Texto mais legível nos fundos claros, sem trocar as superfícies da marca. */
+:root { --muted: #334950; }
+.capability, .journey-section, .plan-section, .questions { --blue: #0737b5; }
+.flow-artifact > span:first-child,
+.numbers-artifact dd,
+.verb-track,
+.journey-step .step-number,
+.phone-greeting,
+.phone-facts dt,
+.screen-tab:not([aria-pressed="true"]) { color: #334950; }
+.account-foot { color: #102a35; }
+.channels p span { color: #334950; }
+.journey-section .phone-caption p { color: #334950; }
+.registration-copy > p,
+.registration-note > p,
+.registration a[href$="#perguntas"],
+.form-intro,
+.form-aviso,
+.form-section-heading h4,
+.form-section-heading p,
+.campo-ajuda,
+.opcao span,
+.campo .opcional { color: #fff; }

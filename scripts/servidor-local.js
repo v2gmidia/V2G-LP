@@ -20,6 +20,7 @@ if (process.argv.includes('--simular')) process.env.LEADS_SIMULAR = '1';
 const RAIZ = path.resolve(__dirname, '..');
 const PORTA = Number(process.env.PORT) || 5173;
 const handler = require(path.join(RAIZ, 'api', 'pre-cadastro.js'));
+const cabeçalhosSite = JSON.parse(fs.readFileSync(path.join(RAIZ, 'vercel.json'), 'utf8')).headers[0].headers;
 
 const TIPOS = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -42,9 +43,13 @@ function lerCorpo(req) {
 
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
-  // os mesmos cabeçalhos do vercel.json
-  res.setHeader('X-Frame-Options', 'DENY');
-  res.setHeader('X-Content-Type-Options', 'nosniff');
+  // Espelha os cabeçalhos globais de produção para detectar incompatibilidades locais.
+  for (const { key, value } of cabeçalhosSite) res.setHeader(key, value);
+
+  if (url.pathname === '/__previa.css') {
+    res.setHeader('Content-Type', 'text/css; charset=utf-8');
+    return res.end('.aviso-previa{position:relative;z-index:100;background:#EAFF64;color:#051225;padding:8px 16px;text-align:center;font:500 13px Archivo,sans-serif}');
+  }
 
   if (url.pathname === '/api/pre-cadastro') {
     if (req.method === 'POST') req.body = await lerCorpo(req);
@@ -64,8 +69,8 @@ http.createServer(async (req, res) => {
     }
     res.setHeader('Content-Type', TIPOS[path.extname(arquivo)] || 'application/octet-stream');
     if (arquivo === path.join(RAIZ, 'index.html') && process.env.LEADS_SIMULAR === '1') {
-      conteudo = conteudo.toString('utf8').replace('<body', '<body data-previa-local="true"');
-      conteudo = conteudo.replace(/(<body[^>]*>)/, '$1<div role="status" style="position:relative;z-index:100;background:#EAFF64;color:#051225;padding:8px 16px;text-align:center;font:500 13px Archivo,sans-serif">Prévia local · os contatos enviados aqui são simulados.</div>');
+      conteudo = conteudo.toString('utf8').replace('</head>', '<link rel="stylesheet" href="/__previa.css"></head>').replace('<body', '<body data-previa-local="true"');
+      conteudo = conteudo.replace(/(<body[^>]*>)/, '$1<div role="status" class="aviso-previa">Prévia local · os contatos enviados aqui são simulados.</div>');
     }
     res.end(conteudo);
   });

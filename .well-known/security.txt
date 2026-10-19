@@ -1,0 +1,4 @@
+Contact: mailto:v2gcentral@v2gmidia.com.br
+Expires: 2027-04-19T00:00:00Z
+Preferred-Languages: pt-BR, en
+Canonical: https://www.v2gmidia.com.br/.well-known/security.txt
