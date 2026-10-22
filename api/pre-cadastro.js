@@ -18,10 +18,11 @@
 
 const crypto = require('crypto');
 const { validaLead } = require('./_lead');
+const { alertarNovoLead } = require('./_alerta-lead');
 
 const MSG_RECEBIDO_HTML =
   'Recebemos seu interesse. Isso não cria pedido, pagamento ou acesso. A equipe confere o CNPJ e os requisitos antes de orientar a compra.';
-const CONTATO_URL = 'https://wa.me/5521999689689?text=' +
+const CONTATO_URL = 'https://wa.me/5521980351531?text=' +
   encodeURIComponent('Olá! Enviei meu pré-cadastro pelo site da V2G e gostaria de conversar com a equipe.');
 
 // Só para LEADS_SIMULAR=1: memória do processo local.
@@ -159,11 +160,21 @@ module.exports = async function handler(req, res) {
     return responde(req, res, 502, { ok: false, erro: 'Não conseguimos enviar agora. Tente de novo em alguns minutos.' });
   }
 
-  if (resultado && resultado.ok === true) return responde(req, res, 200, {
-    ok: true,
-    contato_url: CONTATO_URL,
-    ...(process.env.LEADS_SIMULAR === '1' ? { simulado: true } : {})
-  });
+  if (resultado && resultado.ok === true) {
+    // O lead já está salvo. Falha no alerta nunca induz a reenviar o formulário.
+    if (process.env.LEADS_SIMULAR !== '1') {
+      try {
+        const alerta = await alertarNovoLead(v.lead);
+        if (alerta.estado === 'pendente')
+          console.error('[pre-cadastro] alerta pendente; reconciliar leads salvos:', alerta.referencia);
+      } catch { console.error('[pre-cadastro] alerta indisponível; reconciliar leads salvos'); }
+    }
+    return responde(req, res, 200, {
+      ok: true,
+      contato_url: CONTATO_URL,
+      ...(process.env.LEADS_SIMULAR === '1' ? { simulado: true } : {})
+    });
+  }
   if (resultado && resultado.motivo === 'limite') {
     return responde(req, res, 429, { ok: false, erro: 'Recebemos vários envios daqui na última hora. Tente de novo mais tarde.' });
   }

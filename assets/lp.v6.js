@@ -281,7 +281,7 @@
           try {
             var urlContato = new URL(res.j.contato_url);
             if (urlContato.protocol === 'https:' && urlContato.host === 'wa.me' &&
-                urlContato.pathname === '/5521999689689' && !urlContato.username && !urlContato.password) {
+                urlContato.pathname === '/5521980351531' && !urlContato.username && !urlContato.password) {
               destino = urlContato.href;
             }
           } catch (e) { /* Sem destino confirmado, o botão continua oculto. */ }
