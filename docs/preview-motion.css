@@ -1,0 +1,34 @@
+/* Experiência local: a rota acompanha as telas reais da operação. */
+.motion-preview-ribbon{position:relative;z-index:60;padding:8px 18px;background:var(--lime);color:var(--navy);text-align:center;font:650 11px/1.35 Archivo,sans-serif;letter-spacing:.02em}
+.motion-preview .product-intro{padding-bottom:36px}
+.motion-preview .process-route{--stage-progress:.3333;position:sticky;top:94px;z-index:10;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--paper);box-shadow:0 12px 24px #07182c0b;border-top:1px solid #b5c9c6}
+.motion-preview .process-route>a{display:flex;align-items:baseline;gap:12px;min-width:0;padding:17px 18px 18px;color:#587079;font-size:13px;line-height:1.3;transition:color .25s ease,background .25s ease}
+.motion-preview .process-route>a+a{border-left:1px solid #d5e0dc}
+.motion-preview .process-route>a span{color:var(--blue);font-size:11px;font-variant-numeric:tabular-nums}
+.motion-preview .process-route>a strong{font-weight:520}
+.motion-preview .process-route>a[aria-current="step"]{color:var(--navy);background:#e6f2f0}
+.motion-preview .process-route>a:hover{color:var(--blue)}
+.motion-preview .process-route-line{position:absolute;inset:auto 0 0;height:3px;background:#c4d6d6;pointer-events:none}
+.motion-preview .process-route-line i{display:block;height:100%;width:100%;background:var(--blue);transform:scaleX(var(--stage-progress));transform-origin:left center;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.motion-preview .product-step{scroll-margin-top:170px}
+.motion-preview .product-step .product-index{transition:color .25s ease}
+.motion-preview .product-step.is-current .product-index{color:#063ab9}
+/* O preenchimento ocupa todo o CTA; a seta permanece fora do texto deslizante. */
+.motion-preview .motion-fill-button{--button-fill-base:var(--blue);--button-fill-hover:var(--ice);position:relative;isolation:isolate;overflow:hidden;background:transparent;transition:color .25s ease}
+.motion-preview .motion-fill-button::before,.motion-preview .motion-fill-button::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+.motion-preview .motion-fill-button::before{z-index:0;background:var(--button-fill-base);transform-origin:50% 90%;transition:transform .5s cubic-bezier(.165,.84,.44,1)}
+.motion-preview .motion-fill-button::after{z-index:1;background:var(--button-fill-hover);transform:translateY(101%);transition:transform .5s cubic-bezier(.165,.84,.44,1)}
+.motion-preview .motion-fill-button>:is(.motion-label,.arrow){position:relative;z-index:2}
+.motion-preview .motion-label{overflow:hidden;white-space:nowrap}
+.motion-preview .motion-label>span{display:inline-block;text-shadow:0 -2em 0 currentColor;transition:transform .3s cubic-bezier(.165,.84,.44,1)}
+.motion-preview .motion-fill-button:is(:hover,:focus-visible){color:var(--navy)}
+.motion-preview .motion-fill-button:is(:hover,:focus-visible)::before{transform:scale(.93)}
+.motion-preview .motion-fill-button:is(:hover,:focus-visible)::after{transform:translateY(0)}
+.motion-preview .motion-fill-button:is(:hover,:focus-visible) .motion-label>span{transform:translateY(2em)}
+.motion-preview .plan-offer>.motion-fill-button{--button-fill-base:var(--lime);--button-fill-hover:var(--ice);color:var(--navy)}
+.motion-preview .motion-fill-button:active{transform:scale(.99)}
+.motion-preview #form-pre-cadastro .campo:focus-within>:is(label,legend){color:var(--ice)}
+.motion-preview #form-pre-cadastro .campo:not(.invalido) :is(input,select):focus-visible{outline-color:var(--ice)}
+@media(max-width:760px){.motion-preview-ribbon{padding:7px 10px;font-size:10px}.motion-preview .product-intro{padding-bottom:24px}.motion-preview .process-route{top:76px}.motion-preview .process-route>a{display:grid;gap:3px;padding:11px 8px 13px;font-size:11px}.motion-preview .process-route>a span{font-size:10px}.motion-preview .product-step{scroll-margin-top:142px}}
+@media(hover:none){.motion-preview .motion-fill-button:hover{color:inherit}.motion-preview .motion-fill-button:hover::before,.motion-preview .motion-fill-button:hover::after,.motion-preview .motion-fill-button:hover .motion-label>span{transform:none}}
+@media(prefers-reduced-motion:reduce){.motion-preview .process-route-line i,.motion-preview .process-route>a,.motion-preview .motion-fill-button,.motion-preview .motion-fill-button::before,.motion-preview .motion-fill-button::after,.motion-preview .motion-label>span{transition:none!important}.motion-preview .motion-fill-button:is(:hover,:focus-visible) .motion-label>span{transform:none}}
