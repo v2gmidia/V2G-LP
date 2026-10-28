@@ -12,7 +12,7 @@ assert.equal(ids.length, new Set(ids).size, 'Os ids da página não podem se rep
 for (const [, id] of html.matchAll(/\bhref="#([^"]+)"/g)) {
   assert.ok(ids.includes(id), 'Âncora sem destino: ' + id);
 }
-for (const [, file] of html.matchAll(/(?:src|href)="(\/assets\/[^"#]+)(?:#[^"]*)?"/g)) {
+for (const [, file] of html.matchAll(/(?:src|href)="(\/assets\/[^"#?]+)(?:[?#][^"]*)?"/g)) {
   assert.ok(fs.existsSync(path.join(root, file)), 'Asset ausente: ' + file);
 }
 assert.ok(!html.includes('id="cronometro"'), 'Não anunciar data de lançamento nesta jornada.');
@@ -27,10 +27,13 @@ assert.match(html, /Verba de mídia<\/dt><dd>Separada da mensalidade/);
 assert.match(html, /pagar 12 meses à vista<\/span><strong>R\$ 5\.280 no total, por conta<\/strong>/);
 assert.match(html, /R\$ 720 a menos \(12%\) em relação a 12 mensalidades de R\$ 500/);
 assert.match(html, /O envio não cria pedido, cobrança ou acesso/);
-assert.match(html, /Qual é a diferença entre o mínimo de 6 meses e o anual à vista/);
+assert.match(html, /A tecnologia organiza\./);
+assert.match(html, /As pessoas acompanham\./);
+assert.ok(!html.includes('id="perguntas"'), 'A seção de perguntas foi removida desta versão.');
 assert.match(html, /A situação cadastral ativa é validada com a equipe antes de abrir a compra/);
 assert.ok(!/href="https?:\/\/[^\"]+\/contratar/.test(html), 'A LP não pode apontar para checkout público inexistente.');
-assert.ok(!/href="https?:\/\/wa\.me\//.test(html), 'WhatsApp comercial não pode contornar a captura.');
+assert.match(html, /href="https:\/\/wa\.me\/5521980351531"[^>]*>Ainda tem alguma dúvida\? Chame no WhatsApp/);
+assert.ok(!html.includes('preview-nao-envia') && !html.includes('Prévia local para revisão'), 'A página principal não pode usar o formulário da prévia.');
 const button = html.match(/<a\b[^>]*id="contato-whatsapp"[^>]*>/)?.[0];
 assert.ok(button?.includes(' hidden'), 'CTA do WhatsApp precisa começar oculto.');
 assert.ok(!/\bhref=/.test(button), 'Destino do WhatsApp deve vir da confirmação da API.');
@@ -98,7 +101,10 @@ async function conferirRespostaContato(body, status = 200) {
   };
   let requests = 0;
   vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/lp.v6.js'), 'utf8'), {
-    URL, URLSearchParams, window: {}, location: { search: '', origin: 'https://exemplo.local', pathname: '/' },
+    URL, URLSearchParams, window: {}, location: {
+      search: '?utm_source=ig&utm_medium=social&utm_content=link_in_bio',
+      origin: 'https://exemplo.local', pathname: '/'
+    },
     document: {
       querySelector: () => null,
       getElementById: (id) => nodes[id] || null,
@@ -114,12 +120,16 @@ async function conferirRespostaContato(body, status = 200) {
 }
 
 (async () => {
-  const url = 'https://wa.me/5521999689689?text=Ol%C3%A1';
+  const url = 'https://wa.me/5521980351531?text=Ol%C3%A1';
   const persisted = await conferirRespostaContato({ ok: true, contato_url: url });
+  assert.equal(persisted.form.elements.utm_source.value, 'ig');
+  assert.equal(persisted.form.elements.utm_medium.value, 'social');
+  assert.equal(persisted.form.elements.utm_content.value, 'link_in_bio');
+  assert.equal(persisted.form.elements.pagina_origem.value, 'https://exemplo.local/');
   assert.equal(persisted.contato.href, url);
   assert.equal(persisted.contato.hidden, false);
   assert.equal(persisted.form.hidden, true);
-  for (const contato_url of [undefined, 'javascript:alert(1)', 'https://outro.example/', 'https://wa.me/5511999999999', 'https://usuario@wa.me/5521999689689']) {
+  for (const contato_url of [undefined, 'javascript:alert(1)', 'https://outro.example/', 'https://wa.me/5511999999999', 'https://usuario@wa.me/5521980351531']) {
     const rejected = await conferirRespostaContato({ ok: true, contato_url });
     assert.equal(rejected.contato.hidden, true);
     assert.equal(rejected.contato.href, undefined);
@@ -131,5 +141,5 @@ async function conferirRespostaContato(body, status = 200) {
   const simulation = await conferirRespostaContato({ ok: true, contato_url: url, simulado: true });
   assert.match(simulation.nodes['enviado-mensagem'].textContent, /Nenhum contato foi salvo/);
   assert.equal(simulation.contato.textContent, 'Ver link do WhatsApp');
-  console.log('OK: oferta mensal/anual, CNPJ por dígitos, âncoras, assets, campos, links sem PII, WhatsApp condicionado, erros, simulação e envio duplicado.');
+  console.log('OK: oferta mensal/anual, CNPJ por dígitos, âncoras, assets, campos, links sem PII, WhatsApp, erros, simulação e envio duplicado.');
 })().catch((error) => { console.error(error); process.exitCode = 1; });

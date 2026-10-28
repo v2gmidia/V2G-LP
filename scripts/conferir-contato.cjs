@@ -43,7 +43,7 @@ async function enviar({ body = lead, accept = 'application/json', method = 'POST
   assert.equal(r.status, 200);
   assert.equal(r.json.ok, true);
   assert.equal(new URL(r.json.contato_url).host, 'wa.me');
-  assert.equal(new URL(r.json.contato_url).pathname, '/5521999689689');
+  assert.equal(new URL(r.json.contato_url).pathname, '/5521980351531');
   assert.equal(r.json.simulado, undefined);
   assert.equal(r.headers['Cache-Control'], 'no-store');
   assert.ok(!r.raw.includes(lead.email));

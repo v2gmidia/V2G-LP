@@ -65,7 +65,7 @@
 
   // A prévia valida localmente e jamais envia dados ou abre uma compra.
   const form = document.getElementById('form-pre-cadastro');
-  if (form) {
+  if (form && form.getAttribute('action') === '/preview-nao-envia') {
     const field = (name) => form.elements.namedItem(name);
     const chosen = (name) => form.querySelector(`input[name="${name}"]:checked`)?.value || '';
     const digits = (value) => String(value || '').replace(/\D/g, '');
