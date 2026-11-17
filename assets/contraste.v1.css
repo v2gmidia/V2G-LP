@@ -21,3 +21,5 @@
 .campo-ajuda,
 .opcao span,
 .campo .opcional { color: #fff; }
+
+.registration .opcao:has(input:checked) > span { color: var(--navy); }

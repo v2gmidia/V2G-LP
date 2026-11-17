@@ -1,8 +1,4 @@
 (() => {
-  document.querySelectorAll('[data-app-link="login"]').forEach((link) => {
-    link.href = 'https://v2g-deploy-webapp.vercel.app/entrar?modo=login';
-  });
-
   const pain = document.querySelector('[data-pain-clock]');
   if (pain) {
     const clock = pain.querySelector('[data-pain-time]');

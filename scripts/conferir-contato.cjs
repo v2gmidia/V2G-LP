@@ -55,7 +55,8 @@ async function enviar({ body = lead, accept = 'application/json', method = 'POST
   process.env.LEADS_CNPJ_RPC_ENABLED = '0';
 
   r = await enviar({ accept: 'text/html' });
-  assert.match(r.raw, /Continuar no WhatsApp/);
+  assert.match(r.raw, /A equipe retornará pelo WhatsApp informado/);
+  assert.ok(!r.raw.includes('href="https://wa.me/'));
   assert.match(r.raw, /lp\.v5\.css/);
 
   const antes = chamadas;

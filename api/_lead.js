@@ -36,6 +36,18 @@ function cnpjTemDigitosValidos(valor) {
   }
   return true;
 }
+function cpfTemDigitosValidos(valor) {
+  const cpf=texto(valor,24).replace(/\D/g,'');
+  if(!/^\d{11}$/.test(cpf)||/^(\d)\1{10}$/.test(cpf))return false;
+  for(const n of [9,10]){
+    let sum=0;for(let i=0;i<n;i++)sum+=Number(cpf[i])*(n+1-i);
+    const digit=(sum*10)%11;
+    if(Number(cpf[n])!==(digit===10?0:digit))return false;
+  }
+  return true;
+}
+const documentoContratanteValido=valor=>typeof valor==='string'&&/^[0-9.\-/ ]+$/.test(valor)
+  &&(cpfTemDigitosValidos(valor)||cnpjTemDigitosValidos(valor));
 
 function limpaInstagram(v) {
   return texto(v, 120)
@@ -50,7 +62,7 @@ function limpaInstagram(v) {
  * Recebe o corpo cru do formulário.
  * Devolve { ok: true, lead } ou { ok: false, campos: { nome: 'mensagem' } }.
  */
-function validaLead(corpo) {
+function validaLead(corpo,{documentoFlexivel=false}={}) {
   const b = corpo && typeof corpo === 'object' ? corpo : {};
   const campos = {};
 
@@ -72,7 +84,8 @@ function validaLead(corpo) {
   // A LP só consegue conferir formato e dígitos. Situação cadastral ativa
   // exige uma fonte oficial e continua sendo conferida antes da compra.
   const cnpj = texto(b.cnpj, 24).replace(/\D/g, '');
-  if (!cnpjTemDigitosValidos(cnpj)) campos.cnpj = 'Confira o CNPJ da empresa.';
+  if (!(documentoFlexivel?documentoContratanteValido(String(b.cnpj??'')):cnpjTemDigitosValidos(cnpj)))
+    campos.cnpj = documentoFlexivel?'Confira o CPF ou CNPJ do contratante.':'Confira o CNPJ da empresa.';
 
   const nicho = texto(b.nicho, 40);
   if (!NICHOS.includes(nicho)) campos.nicho = 'Escolha o ramo do negócio.';
@@ -131,4 +144,4 @@ function validaLead(corpo) {
   };
 }
 
-module.exports = { validaLead, TEXTO_CONSENTIMENTO };
+module.exports = { validaLead, TEXTO_CONSENTIMENTO, cnpjTemDigitosValidos,cpfTemDigitosValidos,documentoContratanteValido };

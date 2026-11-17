@@ -65,12 +65,68 @@
   /* ---------- 2. formulário ---------- */
   var form = document.getElementById('form-pre-cadastro');
   if (!form) return;
+  var botao = form.querySelector('button[type=submit]');
+  var textoBotao = botao.textContent;
+  var enviando = false;
+  var qaComercial = document.body.getAttribute('data-comercial-qa') === 'true';
+  var documentoFlexivel = false;
 
   var $ = function (nome) { return form.elements[nome]; };
+  if (qaComercial && $('solicitacao_id') && !$('solicitacao_id').value &&
+      window.crypto && window.crypto.randomUUID) $('solicitacao_id').value = window.crypto.randomUUID();
   var valorRadio = function (nome) {
     var marcado = form.querySelector('input[name="' + nome + '"]:checked');
     return marcado ? marcado.value : '';
   };
+
+  // O legado grava um único negócio e não tem colunas para vários anunciantes.
+  // Agência pode preparar seus dados na prévia, mas não deve enviar um briefing
+  // inventado só para satisfazer a RPC antiga.
+  var camposDireto = document.getElementById('campos-direto');
+  var camposAgencia = document.getElementById('campos-agencia');
+  var atualizarPerfil = function () {
+    if (!camposDireto || !camposAgencia) return;
+    var agencia = valorRadio('perfil') === 'agencia';
+    camposDireto.hidden = agencia;
+    camposAgencia.hidden = !agencia;
+    botao.disabled = (agencia && !qaComercial) || enviando;
+    var pendente = document.getElementById('agencia-envio-pendente');
+    if (pendente && qaComercial) pendente.hidden = true;
+  };
+  form.querySelectorAll('input[name="perfil"]').forEach(function (radio) {
+    radio.addEventListener('change', atualizarPerfil);
+  });
+  atualizarPerfil();
+  if (!qaComercial) {
+    fetch('/api/comercial-config', { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (config) {
+        if (!config || config.enabled !== true) return;
+        var perfilComercial = document.getElementById('perfil-comercial');
+        if (perfilComercial) perfilComercial.hidden = false;
+        documentoFlexivel = config.environment === 'production';
+        if (documentoFlexivel) {
+          var documentLabel=document.querySelector('label[for="f-cnpj"]');
+          if(documentLabel)documentLabel.textContent='CPF ou CNPJ do contratante';
+          if($('cnpj'))$('cnpj').placeholder='CPF ou CNPJ';
+          var comprar=document.getElementById('comprar-online');
+          if(comprar&&config.checkoutEnabled===true&&config.checkoutUrl==='https://app.v2gmidia.com.br/contratar'){
+            var pricingPurchase=document.getElementById('pricing-purchase');
+            if(pricingPurchase)pricingPurchase.hidden=false;
+            comprar.disabled=false;
+            comprar.addEventListener('click',function(){window.location.assign('https://app.v2gmidia.com.br/contratar');});
+            var checkoutNote=document.getElementById('checkout-note');
+            if(checkoutNote)checkoutNote.textContent='Contrate para seu negócio ou para sua agência.';
+          }
+        }
+        qaComercial = true;
+        document.body.setAttribute('data-comercial-qa', 'true');
+        form.action = '/api/comercial-interesse';
+        if ($('solicitacao_id') && !$('solicitacao_id').value && window.crypto && window.crypto.randomUUID)
+          $('solicitacao_id').value = window.crypto.randomUUID();
+        atualizarPerfil();
+      }).catch(function () { /* Fluxo legado permanece. */ });
+  }
 
   // UTMs e página de origem
   var params = new URLSearchParams(location.search);
@@ -112,6 +168,7 @@
   };
   if (cnpj) cnpj.addEventListener('input', function () {
     var d = cnpjLimpo(cnpj.value);
+    if(documentoFlexivel&&d.length<=11){cnpj.value=d;return;}
     var v = d;
     if (d.length > 2) v = d.slice(0, 2) + '.' + d.slice(2);
     if (d.length > 5) v = v.slice(0, 6) + '.' + d.slice(5);
@@ -161,11 +218,29 @@
     },
     email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Confira o e-mail.'; },
     negocio: function (v) { return v.trim().length >= 2 ? '' : 'Escreva o nome do negócio.'; },
-    cnpj: function (v) { return cnpjComDigitosValidos(v) ? '' : 'Confira o CNPJ da empresa.'; },
+    cnpj: function (v) {
+      var d=cnpjLimpo(v),cpfOk=false;
+      if(documentoFlexivel&&/^\d{11}$/.test(d)&&!(/^(\d)\1{10}$/).test(d)){
+        cpfOk=true;[9,10].forEach(function(n){var sum=0;for(var i=0;i<n;i++)sum+=Number(d[i])*(n+1-i);var digit=(sum*10)%11;if(Number(d[n])!==(digit===10?0:digit))cpfOk=false;});
+      }
+      return cnpjComDigitosValidos(v)||cpfOk?'':documentoFlexivel?'Confira o CPF ou CNPJ do contratante.':'Confira o CNPJ da empresa.';
+    },
     nicho: function (v) { return v ? '' : 'Escolha o ramo do negócio.'; },
     nicho_outro: function (v) { return $('nicho').value !== 'outro' || v.trim().length >= 2 ? '' : 'Conte qual é o ramo.'; },
     instagram: function (v) { return /^[a-z0-9._]{1,30}$/.test(limpaInsta(v)) ? '' : 'Coloque o @ do Instagram do negócio.'; },
     perfil: function () { return valorRadio('perfil') ? '' : 'Escolha uma opção.'; },
+    quantidade_anunciantes: function (v) {
+      if (valorRadio('perfil') !== 'agencia') return '';
+      var n = Number(v);
+      return Number.isInteger(n) && n >= 1 && n <= 100 ? '' : 'Informe de 1 a 100 anunciantes.';
+    },
+    nomes_anunciantes: function (v) {
+      if (valorRadio('perfil') !== 'agencia') return '';
+      var n = Number($('quantidade_anunciantes').value);
+      var nomes = v.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+      return nomes.length === n && nomes.every(function (s) { return s.length >= 2 && s.length <= 120; })
+        ? '' : 'Escreva um nome por linha para cada anunciante.';
+    },
     vende_whatsapp: function () { return valorRadio('vende_whatsapp') ? '' : 'Escolha sim ou não.'; },
     investe_anuncios: function () { return valorRadio('investe_anuncios') ? '' : 'Escolha sim ou não.'; },
     faixa_investimento: function (v) { return valorRadio('investe_anuncios') !== 'sim' || v ? '' : 'Escolha uma faixa.'; },
@@ -223,16 +298,16 @@
   });
 
   var erroGeral = document.getElementById('e-geral');
-  var botao = form.querySelector('button[type=submit]');
-  var textoBotao = botao.textContent;
-
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
     if (botao.disabled) return;
     erroGeral.textContent = '';
 
     var primeiro = null;
-    Object.keys(regras).forEach(function (nome) {
+    Object.keys(regras).filter(function (nome) {
+      return valorRadio('perfil') !== 'agencia' ||
+        ['nome', 'whatsapp', 'email', 'negocio', 'cnpj', 'perfil', 'quantidade_anunciantes', 'nomes_anunciantes', 'consentimento'].indexOf(nome) !== -1;
+    }).forEach(function (nome) {
       if (valida(nome) && !primeiro) primeiro = nome;
     });
     if (primeiro) {
@@ -263,7 +338,15 @@
       utm_content: $('utm_content').value,
       pagina_origem: $('pagina_origem').value
     };
+    if (qaComercial) dados.solicitacao_id = $('solicitacao_id').value;
+    if (valorRadio('perfil') === 'agencia') {
+      ['nicho', 'nicho_outro', 'instagram', 'vende_whatsapp', 'investe_anuncios',
+        'faixa_investimento', 'site'].forEach(function (key) { delete dados[key]; });
+      dados.quantidade_anunciantes = $('quantidade_anunciantes').value;
+      dados.nomes_anunciantes = $('nomes_anunciantes').value;
+    }
 
+    enviando = true;
     botao.disabled = true;
     botao.textContent = 'Enviando…';
 
@@ -275,23 +358,26 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, j: j }; }); })
       .then(function (res) {
         if (res.status === 200 && res.j.ok) {
+          if (res.j.retomar) {
+            var destino = new URL(res.j.retomar.url);
+            var allowed=!documentoFlexivel&&destino.href==='https://v2g-webapp-qa.vercel.app/api/comercial/retomar'
+              ||documentoFlexivel&&destino.href==='https://app.v2gmidia.com.br/api/comercial/retomar'
+              ||!documentoFlexivel&&/^(localhost|127\.0\.0\.1)$/.test(location.hostname)&&destino.href==='http://localhost:3000/api/comercial/retomar';
+            if (!allowed || destino.search || destino.hash) throw new Error('Destino de retomada inválido');
+            var f = document.createElement('form');
+            f.method = 'post'; f.action = destino.href; f.style.display = 'none';
+            ['reference', 'resumeToken'].forEach(function (key) {
+              var i = document.createElement('input'); i.type = 'hidden'; i.name = key;
+              i.value = res.j.retomar[key]; f.appendChild(i);
+            });
+            document.body.appendChild(f); f.submit(); return;
+          }
           var ok = document.getElementById('form-enviado');
-          var contato = document.getElementById('contato-whatsapp');
-          var destino = null;
-          try {
-            var urlContato = new URL(res.j.contato_url);
-            if (urlContato.protocol === 'https:' && urlContato.host === 'wa.me' &&
-                urlContato.pathname === '/5521980351531' && !urlContato.username && !urlContato.password) {
-              destino = urlContato.href;
-            }
-          } catch (e) { /* Sem destino confirmado, o botão continua oculto. */ }
-          if (contato && destino) { contato.href = destino; contato.hidden = false; }
           if (res.j.simulado) {
             document.getElementById('enviado-titulo').textContent = 'Prévia local';
             document.getElementById('enviado-mensagem').textContent = 'Nenhum contato foi salvo. Esta prévia mostra o caminho que a pessoa verá após o envio.';
             var ajuda = ok.querySelector('.enviado-ajuda');
             if (ajuda) ajuda.hidden = true;
-            if (contato && destino) contato.textContent = 'Ver link do WhatsApp';
           }
           var troca = function () { form.hidden = true; ok.hidden = false; ok.focus(); };
           if (!document.documentElement.classList.contains('mov') || !form.animate) { troca(); return; }
@@ -316,7 +402,8 @@
         erroGeral.textContent = 'Sem conexão. Confira a internet e tente de novo.';
       })
       .then(function () {
-        botao.disabled = false;
+        enviando = false;
+        atualizarPerfil();
         botao.textContent = textoBotao;
       });
   });

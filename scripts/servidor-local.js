@@ -14,12 +14,16 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { randomUUID } = require('crypto');
 
-if (process.argv.includes('--simular')) process.env.LEADS_SIMULAR = '1';
+if (process.argv.includes('--simular') || process.argv.includes('--simular-comercial')) process.env.LEADS_SIMULAR = '1';
+if (process.argv.includes('--simular-comercial')) process.env.V2G_COMMERCIAL_ENTRY_V1_ENABLED = '1';
 
 const RAIZ = path.resolve(__dirname, '..');
 const PORTA = Number(process.env.PORT) || 5173;
 const handler = require(path.join(RAIZ, 'api', 'pre-cadastro.js'));
+const handlerComercial = require(path.join(RAIZ, 'api', 'comercial-interesse.js'));
+const configComercial = require(path.join(RAIZ, 'api', 'comercial-config.js'));
 const cabeçalhosSite = JSON.parse(fs.readFileSync(path.join(RAIZ, 'vercel.json'), 'utf8')).headers[0].headers;
 
 const TIPOS = {
@@ -55,6 +59,11 @@ http.createServer(async (req, res) => {
     if (req.method === 'POST') req.body = await lerCorpo(req);
     return handler(req, res);
   }
+  if (url.pathname === '/api/comercial-interesse') {
+    if (req.method === 'POST') req.body = await lerCorpo(req);
+    return handlerComercial(req, res);
+  }
+  if (url.pathname === '/api/comercial-config') return configComercial(req, res);
 
   let arquivo = path.normalize(path.join(RAIZ, decodeURIComponent(url.pathname)));
   if (!arquivo.startsWith(RAIZ)) { res.statusCode = 403; return res.end(); }
@@ -71,6 +80,11 @@ http.createServer(async (req, res) => {
     if (arquivo === path.join(RAIZ, 'index.html') && process.env.LEADS_SIMULAR === '1') {
       conteudo = conteudo.toString('utf8').replace('</head>', '<link rel="stylesheet" href="/__previa.css"></head>').replace('<body', '<body data-previa-local="true"');
       conteudo = conteudo.replace(/(<body[^>]*>)/, '$1<div role="status" class="aviso-previa">Prévia local · os contatos enviados aqui são simulados.</div>');
+      if (process.env.V2G_COMMERCIAL_ENTRY_V1_ENABLED === '1') {
+        conteudo = conteudo.replace('<body data-previa-local="true"', '<body data-previa-local="true" data-comercial-qa="true"');
+        conteudo = conteudo.replace('action="/api/pre-cadastro"', 'action="/api/comercial-interesse"');
+        conteudo = conteudo.replace('name="solicitacao_id" value=""', 'name="solicitacao_id" value="' + randomUUID() + '"');
+      }
     }
     res.end(conteudo);
   });

@@ -21,7 +21,7 @@ const { validaLead } = require('./_lead');
 const { alertarNovoLead } = require('./_alerta-lead');
 
 const MSG_RECEBIDO_HTML =
-  'Recebemos seu interesse. Isso não cria pedido, pagamento ou acesso. A equipe confere o CNPJ e os requisitos antes de orientar a compra.';
+  'Recebemos seu interesse. A equipe retornará pelo WhatsApp informado. Isso não cria pedido, pagamento ou acesso.';
 const CONTATO_URL = 'https://wa.me/5521980351531?text=' +
   encodeURIComponent('Olá! Enviei meu pré-cadastro pelo site da V2G e gostaria de conversar com a equipe.');
 
@@ -65,15 +65,13 @@ function responde(req, res, status, corpo) {
     corpo.contato_url ? MSG_RECEBIDO_HTML :
     corpo.ok ? 'Recebemos seu envio.' : (corpo.erro || 'Confira os campos e tente de novo.');
   const lista = corpo.campos ? '<ul>' + Object.values(corpo.campos).map((m) => '<li>' + m + '</li>').join('') + '</ul>' : '';
-  const contato = corpo.contato_url ? '<p><a class="button button-blue" href="' + CONTATO_URL + '" target="_blank" rel="noopener">' +
-    (corpo.simulado ? 'Ver link do WhatsApp' : 'Continuar no WhatsApp') + '</a></p>' : '';
   res.statusCode = status;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
   res.end('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>V2G — Contato</title><link rel="stylesheet" href="/assets/lp.v5.css">' +
     '<body style="max-width:640px;margin:64px auto;padding:0 24px 48px;color:#051225;background:#ECF5F2">' +
-    '<main><p style="font-size:1.5rem;font-weight:500">' + msg + '</p>' + lista + contato +
+    '<main><p style="font-size:1.5rem;font-weight:500">' + msg + '</p>' + lista +
     '<p><a href="/#pre-cadastro" style="color:#0B40DA">Voltar ao site</a></p></main></body></html>');
 }
 
@@ -136,6 +134,17 @@ module.exports = async function handler(req, res) {
   // Honeypot: robô preencheu o campo invisível. Responde "ok" e não grava nada.
   if (corpo && typeof corpo.empresa_url === 'string' && corpo.empresa_url.trim() !== '') {
     return responde(req, res, 200, { ok: true });
+  }
+
+  // A ficha nova de agência tem vários anunciantes; a RPC legada não os grava.
+  // Recusar esse formato, inclusive sem JavaScript, evita um falso sucesso.
+  if (corpo && corpo.perfil === 'agencia' &&
+      (Object.prototype.hasOwnProperty.call(corpo, 'quantidade_anunciantes') ||
+       Object.prototype.hasOwnProperty.call(corpo, 'nomes_anunciantes'))) {
+    return responde(req, res, 503, {
+      ok: false,
+      erro: 'O envio de interesse para agência ainda está em preparação. Nenhum dado foi salvo.'
+    });
   }
 
   const v = validaLead(corpo);
