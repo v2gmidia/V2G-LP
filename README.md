@@ -1,8 +1,11 @@
-# V2G — Landing Page (pré-cadastro)
+# V2G — Landing Page
 
-Página pública em v2gmidia.com.br. Objetivo único: captar interessados no
-formulário de pré-cadastro. Site estático (HTML/CSS/JS), sem build, sem
-dependências, mais uma função de servidor da Vercel para o formulário.
+Página pública em v2gmidia.com.br. A página principal apresenta a parceria
+de mídia paga para agências. A ficha de interesse prepara uma mensagem no
+WhatsApp; o visitante precisa enviá-la para concluir o contato. A ficha não
+grava dados no servidor. O endpoint antigo de pré-cadastro continua no
+repositório para compatibilidade, mas a página principal não o utiliza.
+Site estático (HTML/CSS/JS), sem build nem dependências.
 
 ## Rodar localmente
 
@@ -33,9 +36,10 @@ Antes do primeiro deploy, rode `supabase/leads_lp.sql` no SQL Editor do Supabase
 ## Estrutura
 
 ```
-index.html                 A landing (hero → problema → o que faz → como funciona →
-                           para quem → onde estamos → formulário → perguntas → rodapé)
-api/pre-cadastro.js        POST do formulário: honeypot, validação, ip_hash, rpc no Supabase
+index.html                 LP para agências (hero → dores → comparação → operação →
+                           prova → plano → contato pelo WhatsApp → rodapé)
+assets/lp-agencias.v1.js   Gráfico interativo e passagem da ficha ao WhatsApp
+api/pre-cadastro.js        Endpoint legado do formulário anterior
 api/_lead.js               Regras de validação do lead (não vira rota: começa com "_")
 supabase/leads_lp.sql      Tabela leads_lp + função inserir_lead_lp + permissões
 scripts/servidor-local.js  Servidor de teste local (imita a Vercel)
